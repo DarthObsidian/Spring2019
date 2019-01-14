@@ -103,4 +103,14 @@ public class PlayerController : MonoBehaviour
 
 		return false;
 	}
+
+	//dynamic turning
+	//vault over small obsticals
+	//realistic jump
+	//dodge roll. single tap jump, double tap to roll
+	//sword, one side is normal, one side explode
+	//swift attacks build up to power attacks
+	//counter-attacks
+	//shield
+	//running into wall stops you
 }
