@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour
 
 			RaycastHit hit;
 			//checks via raycast to see if the player is close enough to the ground to count as being grounded
+			//also changes the forward vector so player doesn't bounce down slopes
 			if(Physics.Raycast(bottom, -Vector3.up, out hit, 0.2f, ground))
 			{
 				forward = Vector3.Cross(transform.right, hit.normal);
@@ -92,7 +93,6 @@ public class PlayerController : MonoBehaviour
 				{
 					forward = strafeDir;
 				}
-				cc.Move(new Vector3(0, -hit.distance, 0));
 				return true;
 			}
 			return false;

@@ -32,7 +32,9 @@ public class CameraController : MonoBehaviour
             else
             {
                 freeCam.m_YAxis.m_InputAxisName = "";
+                freeCam.m_YAxis.m_InputAxisValue = 0;
                 freeCam.m_XAxis.m_InputAxisName = "";
+                freeCam.m_XAxis.m_InputAxisValue = 0;
             }
         }
     }
