@@ -7,37 +7,36 @@ public class PlayerController : MonoBehaviour
 {   
     //basic movement
     private CharacterController cc;
-	private float verticalVelocity = 0.0f;
-	public float speed = 10;
+	public float verticalVelocity = 0.0f;
+	public float speed = 10.0f;
 	Vector3 move = Vector3.zero;
     public bool canMove = true;
     public Camera maincam;
 
     //variables for jump
-    public float gravity = 14.0f;
-	public float jumpForce = 10.0f;
-	public int jumpCount = 0;
-	public int jumpLimit = 1;
+    public float gravity = 30.0f;
+	public float jumpForce = 15.0f;
+
+	//variables for being grounded
+	public LayerMask ground;
+	bool grounded;
+
+	//varibles for slopes
+	public float maxGroundAngle = 120;
+	float groundAngle; 
+	public bool debug;
+	Vector3 forward;
 
 	void Start() 
 	{
 		cc = GetComponent<CharacterController>();
 	}
 
-	void Update() 
+	void FixedUpdate() 
 	{
+		//Debug.DrawLine(transform.position, transform.position + forward * 5, Color.blue);
         MoveInput();
-        Rotation();
 	}
-
-    void Rotation()
-    {
-        if(canMove)
-        {
-            Vector3 angles = new Vector3(transform.eulerAngles.x, maincam.transform.eulerAngles.y, transform.eulerAngles.z);
-            transform.rotation = Quaternion.Euler(angles);
-        }
-    }
 
 	void MoveInput()
     {
@@ -45,39 +44,26 @@ public class PlayerController : MonoBehaviour
 		{
 			if(isGrounded())
             {
-				{
-					verticalVelocity = Jump(verticalVelocity);
-				}
+				verticalVelocity = 0;
 
-				move.x = Input.GetAxis("Horizontal") * speed;
-				move.z = Input.GetAxis("Vertical") * speed;
+				if(Input.GetButtonDown("Jump"))
+				{
+					verticalVelocity = jumpForce;
+				}
 				
 				//this makes the character controller move based off the local rotation and not global
-				move = transform.TransformDirection(move);
+				move = transform.TransformDirection(new Vector3(Input.GetAxis("Horizontal"), -Mathf.Abs(forward.y), Input.GetAxis("Vertical"))) * speed;
             }
-			else
-			{
-				verticalVelocity = ApplyGravity(verticalVelocity);
-			}
 
-			move.y = verticalVelocity;
-
-			cc.Move(move * Time.deltaTime);
+			//Rotates the character to follow the camera
+			Vector3 angles = new Vector3(transform.eulerAngles.x, maincam.transform.eulerAngles.y, transform.eulerAngles.z);
+            transform.rotation = Quaternion.Euler(angles);
+			
+			//calculates movement
+			verticalVelocity -= gravity * Time.deltaTime;
+			Vector3 movement = move + verticalVelocity * Vector3.up;
+			cc.Move(movement * Time.deltaTime);
 		}
-	}
-    public float Jump(float _verticalVelocity)
-	{
-		_verticalVelocity = -gravity * Time.deltaTime;
-		if(Input.GetButtonDown("Jump"))
-		{
-			_verticalVelocity = jumpForce;
-		}
-		return _verticalVelocity;
-	}
-
-	public float ApplyGravity(float verticalVelocity)
-	{
-		return verticalVelocity -= gravity * Time.deltaTime;
 	}
 
 	//checks if the player is on the ground
@@ -90,18 +76,27 @@ public class PlayerController : MonoBehaviour
 		{
 			return true;
 		}
-
-		Vector3 bottom = cc.transform.position - new Vector3(0, cc.height / 2, 0);
-
-		RaycastHit hit;
-		//checks via raycast to see if the player is close enough to the ground to count as being grounded
-		if(Physics.Raycast(bottom, new Vector3(0, -1, 0), out hit, 0.2f ))
+		else
 		{
-			cc.Move(new Vector3(0, -hit.distance, 0));
-			return true;
-		}
+			Vector3 bottom = cc.transform.position - new Vector3(0, cc.height / 2, 0);
 
-		return false;
+			RaycastHit hit;
+			//checks via raycast to see if the player is close enough to the ground to count as being grounded
+			if(Physics.Raycast(bottom, -Vector3.up, out hit, 0.2f, ground))
+			{
+				forward = Vector3.Cross(transform.right, hit.normal);
+				Vector3 strafeDir = Vector3.Cross(transform.forward, hit.normal);
+
+				//checks to see which direction is more correct
+				if(Mathf.Abs(strafeDir.y) > Mathf.Abs(forward.y))
+				{
+					forward = strafeDir;
+				}
+				cc.Move(new Vector3(0, -hit.distance, 0));
+				return true;
+			}
+			return false;
+		}
 	}
 
 	//dynamic turning
