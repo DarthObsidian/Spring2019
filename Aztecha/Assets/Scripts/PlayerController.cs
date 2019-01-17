@@ -13,9 +13,13 @@ public class PlayerController : MonoBehaviour
     public bool canMove = true;
     public Camera maincam;
 
-    //variables for jump
+    //variables for jump/roll
     public float gravity = 30.0f;
 	public float jumpForce = 15.0f;
+	bool oneJumpPress;
+	bool willJump;
+	public float jumpDelay = 0.5f;
+	float delayTimer;
 
 	//variables for being grounded
 	public LayerMask ground;
@@ -24,46 +28,82 @@ public class PlayerController : MonoBehaviour
 	//varibles for slopes
 	public float maxGroundAngle = 120;
 	float groundAngle; 
-	public bool debug;
 	Vector3 forward;
 
 	void Start() 
 	{
 		cc = GetComponent<CharacterController>();
+		StartCoroutine(PlayGame());
 	}
 
-	void FixedUpdate() 
+	IEnumerator PlayGame() 
 	{
-		//Debug.DrawLine(transform.position, transform.position + forward * 5, Color.blue);
-        MoveInput();
+		while(canMove)
+		{
+			MoveInput();
+			yield return new WaitForSeconds(0.01f);
+		}
 	}
 
 	void MoveInput()
     {
-		if(canMove)
+		//base movement
+		if(isGrounded())
 		{
-			if(isGrounded())
-            {
-				verticalVelocity = 0;
+			verticalVelocity = 0;
 
-				if(Input.GetButtonDown("Jump"))
+			if(Input.GetButtonDown("Jump"))
+			{
+				if(!oneJumpPress)
 				{
-					verticalVelocity = jumpForce;
+					oneJumpPress = true;
+					StartCoroutine(JumpRoll());
 				}
-				
-				//this makes the character controller move based off the local rotation and not global
-				move = transform.TransformDirection(new Vector3(Input.GetAxis("Horizontal"), -Mathf.Abs(forward.y), Input.GetAxis("Vertical"))) * speed;
-            }
+			}
+			if(willJump)
+			{
+				verticalVelocity = jumpForce;
+				willJump = false;
+				oneJumpPress = false;
+			}
+			else if ((Time.time - delayTimer) > jumpDelay)
+			{
+				oneJumpPress = false;
+			}
 
-			//Rotates the character to follow the camera
-			Vector3 angles = new Vector3(transform.eulerAngles.x, maincam.transform.eulerAngles.y, transform.eulerAngles.z);
-            transform.rotation = Quaternion.Euler(angles);
-			
-			//calculates movement
-			verticalVelocity -= gravity * Time.deltaTime;
-			Vector3 movement = move + verticalVelocity * Vector3.up;
-			cc.Move(movement * Time.deltaTime);
+			//this makes the character controller move based off the local rotation and not global
+			move = transform.TransformDirection(new Vector3(Input.GetAxis("Horizontal"), -Mathf.Abs(forward.y), Input.GetAxis("Vertical"))) * speed;
 		}
+
+		//Rotates the character to follow the camera
+		Vector3 angles = new Vector3(transform.eulerAngles.x, maincam.transform.eulerAngles.y, transform.eulerAngles.z);
+		transform.rotation = Quaternion.Euler(angles);
+		
+		//calculates movement
+		verticalVelocity -= gravity * Time.deltaTime;
+		Vector3 movement = move + verticalVelocity * Vector3.up;
+		cc.Move(movement * Time.deltaTime);
+	}
+
+	//checks if player is trying to roll or jump
+	IEnumerator JumpRoll()
+	{
+		bool ready = false;
+		delayTimer = Time.time;
+		while((Time.time - delayTimer) <= jumpDelay)
+		{
+			if(Input.GetButtonUp("Jump"))
+			{
+				ready = true;
+			}
+			if(Input.GetButtonDown("Jump") && ready)
+			{
+				print("roll");
+				yield break;
+			}
+			yield return new WaitForSeconds(0.01f);
+		}
+		willJump = true;
 	}
 
 	//checks if the player is on the ground
@@ -102,7 +142,6 @@ public class PlayerController : MonoBehaviour
 	//dynamic turning
 	//vault over small obsticals
 	//realistic jump
-	//dodge roll. single tap jump, double tap to roll
 	//sword, one side is normal, one side explode
 	//swift attacks build up to power attacks
 	//counter-attacks
