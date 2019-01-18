@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {   
+	[HideInInspector] public Animator anim;
     //basic movement
     private CharacterController cc;
 	public float verticalVelocity = 0.0f;
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
 	void Start() 
 	{
+		anim = GetComponent<Animator>();
 		cc = GetComponent<CharacterController>();
 		StartCoroutine(PlayGame());
 	}
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
 
 	void MoveInput()
     {
+		anim.SetBool("Grounded", isGrounded());
 		//base movement
 		if(isGrounded())
 		{
@@ -54,6 +57,7 @@ public class PlayerController : MonoBehaviour
 
 			if(Input.GetButtonDown("Jump"))
 			{
+				anim.SetTrigger("Jump");
 				if(!oneJumpPress)
 				{
 					oneJumpPress = true;
@@ -62,6 +66,7 @@ public class PlayerController : MonoBehaviour
 			}
 			if(willJump)
 			{
+				anim.SetInteger("JumpOrRoll", 0);
 				verticalVelocity = jumpForce;
 				willJump = false;
 				oneJumpPress = false;
@@ -72,7 +77,11 @@ public class PlayerController : MonoBehaviour
 			}
 
 			//this makes the character controller move based off the local rotation and not global
-			move = transform.TransformDirection(new Vector3(Input.GetAxis("Horizontal"), -Mathf.Abs(forward.y), Input.GetAxis("Vertical"))) * speed;
+			float moveX = Input.GetAxis("Horizontal");
+			float moveZ = Input.GetAxis("Vertical");
+			move = transform.TransformDirection(new Vector3(moveX, -Mathf.Abs(forward.y), moveZ)) * speed;
+			anim.SetFloat("MoveX", moveX);
+			anim.SetFloat("MoveZ", moveZ);
 		}
 
 		//Rotates the character to follow the camera
@@ -81,6 +90,7 @@ public class PlayerController : MonoBehaviour
 		
 		//calculates movement
 		verticalVelocity -= gravity * Time.deltaTime;
+		anim.SetFloat("MoveY", verticalVelocity);
 		Vector3 movement = move + verticalVelocity * Vector3.up;
 		cc.Move(movement * Time.deltaTime);
 	}
@@ -98,7 +108,7 @@ public class PlayerController : MonoBehaviour
 			}
 			if(Input.GetButtonDown("Jump") && ready)
 			{
-				print("roll");
+				anim.SetInteger("JumpOrRoll", 1);
 				yield break;
 			}
 			yield return new WaitForSeconds(0.01f);
