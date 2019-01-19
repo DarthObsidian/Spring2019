@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
 			if(Input.GetButtonDown("Jump"))
 			{
-				anim.SetTrigger("Jump");
+				anim.SetInteger("Jump", 1);
 				if(!oneJumpPress)
 				{
 					oneJumpPress = true;
@@ -70,10 +70,13 @@ public class PlayerController : MonoBehaviour
 				verticalVelocity = jumpForce;
 				willJump = false;
 				oneJumpPress = false;
+				anim.SetInteger("Jump", 0);
 			}
 			else if ((Time.time - delayTimer) > jumpDelay)
 			{
 				oneJumpPress = false;
+				anim.SetInteger("JumpOrRoll", 0);
+				anim.SetInteger("Jump", 0);
 			}
 
 			//this makes the character controller move based off the local rotation and not global
@@ -109,6 +112,7 @@ public class PlayerController : MonoBehaviour
 			if(Input.GetButtonDown("Jump") && ready)
 			{
 				anim.SetInteger("JumpOrRoll", 1);
+				anim.SetInteger("Jump", 0);
 				yield break;
 			}
 			yield return new WaitForSeconds(0.01f);
