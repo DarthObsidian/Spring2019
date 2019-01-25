@@ -22,6 +22,10 @@ public class PlayerController : MonoBehaviour
 	//varibles for slopes
 	Vector3 forward;
 
+	//variables for items
+	public GameObject equippedItem;
+	public Transform snapPos;
+
 	void Start() 
 	{
 		cc = GetComponent<CharacterController>();
@@ -93,5 +97,24 @@ public class PlayerController : MonoBehaviour
 			}
 			return false;
 		}
+	}
+
+	private void OnTriggerStay(Collider other)
+	{
+		if(Input.GetMouseButtonDown(0))
+		{
+			if(other.tag == "Interactable")
+			{
+				other.GetComponent<Interact>().doStuff();
+			}
+		}
+	}
+
+	public void EquipItem(GameObject _item)
+	{
+		equippedItem = _item;
+		_item.transform.SetParent(snapPos);
+		_item.transform.rotation = snapPos.transform.rotation;
+		_item.transform.position = snapPos.transform.position;
 	}
 }
