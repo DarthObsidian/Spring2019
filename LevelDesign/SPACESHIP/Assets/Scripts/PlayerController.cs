@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
 	public GameObject equippedItem;
 	public Transform snapPos;
 
+	//variables for trigger
+	public GameObject trigger;
+
 	void Start() 
 	{
 		cc = GetComponent<CharacterController>();
@@ -43,6 +46,15 @@ public class PlayerController : MonoBehaviour
 
 	void MoveInput()
     {
+		if(Input.GetMouseButtonDown(0))
+		{
+			trigger.SetActive(true);
+		}
+		if(Input.GetMouseButtonUp(0))
+		{
+			trigger.SetActive(false);
+		}
+
 		//base movement
 		if(isGrounded())
 		{
@@ -99,19 +111,20 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerStay(Collider other)
+	private void OnTriggerEnter(Collider other)
 	{
-		if(Input.GetMouseButtonDown(0))
+		if(other.tag == "Interactable")
 		{
-			if(other.tag == "Interactable")
-			{
-				other.GetComponent<Interact>().doStuff();
-			}
-		}
+			other.GetComponent<Interact>().doStuff();
+		}	
 	}
 
 	public void EquipItem(GameObject _item)
 	{
+		if(equippedItem != null)
+		{
+			equippedItem.transform.SetParent(null);
+		}
 		equippedItem = _item;
 		_item.transform.SetParent(snapPos);
 		_item.transform.rotation = snapPos.transform.rotation;

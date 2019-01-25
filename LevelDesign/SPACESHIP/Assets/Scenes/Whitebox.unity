@@ -2969,13 +2969,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: whitebox
       objectReference: {fileID: 0}
+    - target: {fileID: 100022, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 100096, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
+    - target: {fileID: 100096, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
+      propertyPath: m_Name
+      value: LadderConsole
+      objectReference: {fileID: 0}
+    - target: {fileID: 100120, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
+      propertyPath: m_Name
+      value: Ladder
+      objectReference: {fileID: 0}
+    - target: {fileID: 100120, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100260, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
+      propertyPath: m_TagString
+      value: Interactable
+      objectReference: {fileID: 0}
     - target: {fileID: 400034, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.84
+      value: 0.1492
       objectReference: {fileID: 0}
     - target: {fileID: 400036, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.920034
+      value: 0.1501
       objectReference: {fileID: 0}
     - target: {fileID: 400386, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3032,30 +3056,6 @@ PrefabInstance:
     - target: {fileID: 400386, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
       propertyPath: m_LocalScale.z
       value: 100.663315
-      objectReference: {fileID: 0}
-    - target: {fileID: 100096, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
-      objectReference: {fileID: 0}
-    - target: {fileID: 100096, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
-      propertyPath: m_Name
-      value: LadderConsole
-      objectReference: {fileID: 0}
-    - target: {fileID: 100120, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
-      propertyPath: m_Name
-      value: Ladder
-      objectReference: {fileID: 0}
-    - target: {fileID: 100120, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100260, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
-      objectReference: {fileID: 0}
-    - target: {fileID: 100022, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
-      propertyPath: m_TagString
-      value: Interactable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
@@ -4174,6 +4174,7 @@ MonoBehaviour:
     m_Bits: 0
   equippedItem: {fileID: 0}
   snapPos: {fileID: 50837622}
+  trigger: {fileID: 570797094}
 --- !u!54 &435722570
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5012,7 +5013,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 88265ed50e1c69e459551e9c4e62af4d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5389,7 +5390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &570797095
 Transform:
   m_ObjectHideFlags: 0
@@ -5399,7 +5400,7 @@ Transform:
   m_GameObject: {fileID: 570797094}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1.23}
-  m_LocalScale: {x: 0.3866, y: 0.3866, z: 1.2445387}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1.2445387}
   m_Children: []
   m_Father: {fileID: 1252590688}
   m_RootOrder: 0
@@ -7062,7 +7063,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9886fb2fd6b59a8479f9d1b0b0aea027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ladder: {fileID: 1265839436}
+  obj: {fileID: 1265839436}
+  state: 1
+  message: Lowering Ladder
+  noItemMessage: 
+  requiredItem: {fileID: 0}
 --- !u!1 &849707571
 GameObject:
   m_ObjectHideFlags: 0
@@ -13884,7 +13889,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 88265ed50e1c69e459551e9c4e62af4d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16799,10 +16804,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1867799839}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d718a5bbc3d18145abc68c76ec76d6f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9886fb2fd6b59a8479f9d1b0b0aea027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  door: {fileID: 748621647}
+  obj: {fileID: 748621647}
+  state: 0
+  message: Restoring Power
+  noItemMessage: You need a crowbar!
+  requiredItem: {fileID: 2016321866}
 --- !u!1 &1870189307 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100300, guid: cdbc5bcecbec84049a8dbaed79e6426f,
@@ -17094,10 +17103,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1899951036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94a9e6c6085257745acf313608213e73, type: 3}
+  m_Script: {fileID: 11500000, guid: 9886fb2fd6b59a8479f9d1b0b0aea027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shield: {fileID: 141351623}
+  obj: {fileID: 141351623}
+  state: 0
+  message: Disabling Shield
+  noItemMessage: 
+  requiredItem: {fileID: 0}
 --- !u!1 &1905002968 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100384, guid: cdbc5bcecbec84049a8dbaed79e6426f,
@@ -17592,6 +17605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ac8e2a2aea53747871ab907e896329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  message: Equipping Crowbar
 --- !u!4 &2016321868
 Transform:
   m_ObjectHideFlags: 0
@@ -18025,6 +18039,111 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300174, guid: cdbc5bcecbec84049a8dbaed79e6426f, type: 3}
+--- !u!1 &2048745626
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2048745631}
+  - component: {fileID: 2048745630}
+  - component: {fileID: 2048745629}
+  - component: {fileID: 2048745628}
+  - component: {fileID: 2048745627}
+  m_Layer: 0
+  m_Name: Pickup
+  m_TagString: Interactable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2048745627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048745626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ac8e2a2aea53747871ab907e896329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: Equipping Collectable
+--- !u!65 &2048745628
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048745626}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
+  m_Center: {x: 0.0000019669533, y: 2.2537527e-14, z: -0.00000008940697}
+--- !u!23 &2048745629
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048745626}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 88265ed50e1c69e459551e9c4e62af4d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &2048745630
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048745626}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2048745631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048745626}
+  m_LocalRotation: {x: -0.014770852, y: -0.04301144, z: 0.75155044, w: 0.6581062}
+  m_LocalPosition: {x: -5.05, y: 14.72, z: 36.883}
+  m_LocalScale: {x: 1, y: 0.2913, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 2.591, y: -4.525, z: 97.483}
 --- !u!1 &2049426705 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100056, guid: cdbc5bcecbec84049a8dbaed79e6426f,
