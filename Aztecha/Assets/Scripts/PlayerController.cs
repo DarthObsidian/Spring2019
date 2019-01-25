@@ -17,18 +17,12 @@ public class PlayerController : MonoBehaviour
     //variables for jump/roll
     public float gravity = 30.0f;
 	public float jumpForce = 15.0f;
-	bool oneJumpPress;
-	bool willJump;
-	public float jumpDelay = 0.5f;
-	float delayTimer;
+	public bool rolling;
 
 	//variables for being grounded
 	public LayerMask ground;
-	bool grounded;
 
 	//varibles for slopes
-	public float maxGroundAngle = 120;
-	float groundAngle; 
 	Vector3 forward;
 
 	void Start() 
@@ -43,6 +37,8 @@ public class PlayerController : MonoBehaviour
 		while(canMove)
 		{
 			MoveInput();
+			Attack();
+			Defend();
 			yield return new WaitForSeconds(0.01f);
 		}
 	}
@@ -54,29 +50,21 @@ public class PlayerController : MonoBehaviour
 		if(isGrounded())
 		{
 			verticalVelocity = 0;
+			if(!rolling)
+			{
+				anim.SetInteger("Jump", 0);
+			}
 
 			if(Input.GetButtonDown("Jump"))
 			{
+				verticalVelocity += jumpForce;
 				anim.SetInteger("Jump", 1);
-				if(!oneJumpPress)
-				{
-					oneJumpPress = true;
-					StartCoroutine(JumpRoll());
-				}
 			}
-			if(willJump)
+
+			if(Input.GetKeyDown(KeyCode.LeftAlt))
 			{
-				anim.SetInteger("JumpOrRoll", 0);
-				verticalVelocity = jumpForce;
-				willJump = false;
-				oneJumpPress = false;
-				anim.SetInteger("Jump", 0);
-			}
-			else if ((Time.time - delayTimer) > jumpDelay)
-			{
-				oneJumpPress = false;
-				anim.SetInteger("JumpOrRoll", 0);
-				anim.SetInteger("Jump", 0);
+				anim.SetInteger("Jump", 2);
+				rolling = true;
 			}
 
 			//this makes the character controller move based off the local rotation and not global
@@ -98,26 +86,28 @@ public class PlayerController : MonoBehaviour
 		cc.Move(movement * Time.deltaTime);
 	}
 
-	//checks if player is trying to roll or jump
-	IEnumerator JumpRoll()
+	void Attack()
 	{
-		bool ready = false;
-		delayTimer = Time.time;
-		while((Time.time - delayTimer) <= jumpDelay)
+		if(Input.GetMouseButtonDown(0) && !rolling)
 		{
-			if(Input.GetButtonUp("Jump"))
-			{
-				ready = true;
-			}
-			if(Input.GetButtonDown("Jump") && ready)
-			{
-				anim.SetInteger("JumpOrRoll", 1);
-				anim.SetInteger("Jump", 0);
-				yield break;
-			}
-			yield return new WaitForSeconds(0.01f);
+			anim.SetFloat("Mouse0", 1);
 		}
-		willJump = true;
+		else if(Input.GetMouseButtonUp(0))
+		{
+			anim.SetFloat("Mouse0", 0);
+		}
+	}
+
+	void Defend()
+	{
+		if(Input.GetMouseButtonDown(1) && !rolling)
+		{
+			anim.SetFloat("Mouse1", 1);
+		}
+		else if(Input.GetMouseButtonUp(1))
+		{
+			anim.SetFloat("Mouse1", 0);
+		}
 	}
 
 	//checks if the player is on the ground
