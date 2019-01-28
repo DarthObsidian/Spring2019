@@ -25,6 +25,16 @@ public class PlayerController : MonoBehaviour
 	//varibles for slopes
 	Vector3 forward;
 
+	//variables for squad orders
+	public LayerMask squad;
+	private GameObject activeChar;
+
+	void Awake()
+	{
+		//locks the cursor to the center of the screne and turns it invisible
+		Cursor.lockState = CursorLockMode.Locked;
+	}
+
 	void Start() 
 	{
 		anim = GetComponent<Animator>();
@@ -39,7 +49,28 @@ public class PlayerController : MonoBehaviour
 			MoveInput();
 			Attack();
 			Defend();
+			Order();
 			yield return new WaitForSeconds(0.01f);
+		}
+	}
+
+	void Order()
+	{
+		Debug.DrawRay(transform.position, transform.forward * 100, Color.red);
+		RaycastHit hit;
+		if(Physics.Raycast(transform.position, transform.forward, out hit, 100f, squad))
+		{
+			if(Input.GetKeyDown(KeyCode.E))
+			{
+				print(hit.collider.name);
+				activeChar = hit.collider.gameObject;			
+			}
+			else if(Input.GetKeyDown(KeyCode.Q) && activeChar != null)
+			{
+				print(hit.collider.name);
+				activeChar.GetComponent<SquadController>().PerformOrder(hit.collider.gameObject.tag, hit.collider.transform.position);
+				activeChar = null;
+			}
 		}
 	}
 
@@ -146,7 +177,6 @@ public class PlayerController : MonoBehaviour
 	//dynamic turning
 	//vault over small obsticals
 	//realistic jump
-	//sword, one side is normal, one side explode
 	//swift attacks build up to power attacks
 	//counter-attacks
 	//shield
