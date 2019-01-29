@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {   
 	[HideInInspector] public Animator anim;
+	
     //basic movement
     private CharacterController cc;
 	public float verticalVelocity = 0.0f;
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
 	//variables for squad orders
 	public LayerMask squad;
 	private GameObject activeChar;
+	public Camera cam;
 
 	void Awake()
 	{
@@ -56,11 +58,11 @@ public class PlayerController : MonoBehaviour
 
 	void Order()
 	{
-		Debug.DrawRay(transform.position, transform.forward * 100, Color.red);
+		Debug.DrawRay((transform.position + new Vector3(0,0.5f,0)), cam.transform.forward * 100, Color.red);
 		RaycastHit hit;
-		if(Physics.Raycast(transform.position, transform.forward, out hit, 100f, squad))
+		if(Physics.Raycast(transform.position, cam.transform.forward, out hit, 100f, squad))
 		{
-			if(Input.GetKeyDown(KeyCode.E))
+			if(Input.GetKeyDown(KeyCode.E) && hit.collider.tag == "squad")
 			{
 				print(hit.collider.name);
 				activeChar = hit.collider.gameObject;			
