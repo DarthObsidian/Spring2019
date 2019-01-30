@@ -58,9 +58,9 @@ public class PlayerController : MonoBehaviour
 
 	void Order()
 	{
-		Debug.DrawRay((transform.position + new Vector3(0,0.5f,0)), cam.transform.forward * 100, Color.red);
+		Debug.DrawRay((cam.transform.position + new Vector3(0,0.5f,0)), cam.transform.forward * 100, Color.red);
 		RaycastHit hit;
-		if(Physics.Raycast(transform.position, cam.transform.forward, out hit, 100f, squad))
+		if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100f, squad))
 		{
 			if(Input.GetKeyDown(KeyCode.E) && hit.collider.tag == "squad")
 			{
