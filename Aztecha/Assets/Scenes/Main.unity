@@ -1044,7 +1044,7 @@ GameObject:
   - component: {fileID: 780429978}
   m_Layer: 10
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1156,8 +1156,9 @@ GameObject:
   - component: {fileID: 796925376}
   - component: {fileID: 796925375}
   - component: {fileID: 796925380}
+  - component: {fileID: 796925381}
   m_Layer: 11
-  m_Name: Sphere
+  m_Name: Squad Member
   m_TagString: squad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1173,7 +1174,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1269,6 +1270,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc51e72cd2909794aa91ac5e663c2f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &796925381
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796925374}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5412922d611dae943921e1ddfac7bcc9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &817377715
 GameObject:
   m_ObjectHideFlags: 3
@@ -1720,7 +1740,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1338349226}
-  m_LocalRotation: {x: 0.0166015, y: 0.113531075, z: -0.001897302, w: 0.99339396}
+  m_LocalRotation: {x: 0.016601482, y: 0.11353106, z: -0.0018972999, w: 0.99339396}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
