@@ -8,11 +8,13 @@ public class SquadController : MonoBehaviour
 {
     private NavMeshAgent ai;
     private Animator anim;
+    public FollowBehaviour follow;
 
     private void Start()
     {
         ai = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        follow = anim.GetBehaviour<FollowBehaviour>();
     }
 
     private void Update()
@@ -30,7 +32,7 @@ public class SquadController : MonoBehaviour
         {
             anim.SetBool("FollowPlayer", false);
             anim.SetBool("Order", true);
-            ai.SetDestination(_loc);
+            follow.SetDest(_loc);
             ai.stoppingDistance = 0;
         }
     }
