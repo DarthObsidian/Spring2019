@@ -20,7 +20,7 @@ public class FollowBehaviour : StateMachineBehaviour
 
    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
    {
-      ai.SetDestination(destination);
+      ai.SetDestination(player.transform.position);
    }
 
    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

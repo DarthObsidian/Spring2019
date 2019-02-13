@@ -8,7 +8,7 @@ public class SquadController : MonoBehaviour
 {
     private NavMeshAgent ai;
     private Animator anim;
-    public FollowBehaviour follow;
+    private FollowBehaviour follow;
 
     private void Start()
     {
@@ -30,9 +30,11 @@ public class SquadController : MonoBehaviour
     {
         if(_tag == "order")
         {
+            print("hi");
             anim.SetBool("FollowPlayer", false);
             anim.SetBool("Order", true);
             follow.SetDest(_loc);
+            ai.SetDestination(_loc);
             ai.stoppingDistance = 0;
         }
     }
