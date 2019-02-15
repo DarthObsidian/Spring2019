@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {   
+	public Transform startPos;
+
     //basic movement
     private CharacterController cc;
 	public float verticalVelocity = 0.0f;
@@ -31,6 +33,8 @@ public class PlayerController : MonoBehaviour
 
 	void Start() 
 	{
+		transform.position = startPos.position;
+		transform.rotation = startPos.rotation;
 		cc = GetComponent<CharacterController>();
 		StartCoroutine(PlayGame());
 	}
