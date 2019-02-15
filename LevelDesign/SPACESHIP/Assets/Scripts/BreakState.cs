@@ -10,7 +10,6 @@ public class BreakState : StateMachineBehaviour
 
    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
    {
-      // animator.SetBool("break", false);
       GameObject game = GameObject.FindWithTag("PowerSource");
       vfx = game.GetComponent<VisualEffect>();
    }
@@ -25,26 +24,9 @@ public class BreakState : StateMachineBehaviour
       else
       {
          animator.SetFloat("Blend", 0.0f);
-         vfx.SetVector2("MinMax", new Vector2(0,1));
+         vfx.SetVector2("MinMax", new Vector2(0,0.75f));
       }
    }
-
-   override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-   {
-      
-   }
-
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
 
    public void SetState()
    {
