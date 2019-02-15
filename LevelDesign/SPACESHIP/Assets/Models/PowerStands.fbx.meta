@@ -1,0 +1,284 @@
+fileFormatVersion: 2
+guid: d650b3d30e55188448486245fe15a2a3
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Absorber
+    100002: Absorber 1
+    100004: Absorber1
+    100006: Absorber1 1
+    100008: Absorber2
+    100010: Absorber2 1
+    100012: Absorber3
+    100014: Absorber3 1
+    100016: Bottom
+    100018: BottomStand
+    100020: Door
+    100022: Pipe15
+    100024: Pipe16
+    100026: Pipe17
+    100028: Pipe18
+    100030: Pipe19
+    100032: Pipe20
+    100034: Pipe21
+    100036: Pipe22
+    100038: Pipe23
+    100040: Pipe24
+    100042: Pipe25
+    100044: Pipe26
+    100046: Pipe27
+    100048: Pipe3
+    100050: Pipes
+    100052: pipes
+    100054: Pipes 1
+    100056: pipes1
+    100058: PowerAbsorbers
+    100060: PowerBox
+    100062: //RootNode
+    100064: Top
+    100066: TopPowerAbsorbers
+    100068: TopStand
+    100070: Wire
+    100072: Wire1
+    100074: Wire2
+    100076: WireConnector3
+    100078: WireConnector4
+    100080: WireConnector5
+    100082: WireConnector6
+    100084: WireConnectors
+    400000: Absorber
+    400002: Absorber 1
+    400004: Absorber1
+    400006: Absorber1 1
+    400008: Absorber2
+    400010: Absorber2 1
+    400012: Absorber3
+    400014: Absorber3 1
+    400016: Bottom
+    400018: BottomStand
+    400020: Door
+    400022: Pipe15
+    400024: Pipe16
+    400026: Pipe17
+    400028: Pipe18
+    400030: Pipe19
+    400032: Pipe20
+    400034: Pipe21
+    400036: Pipe22
+    400038: Pipe23
+    400040: Pipe24
+    400042: Pipe25
+    400044: Pipe26
+    400046: Pipe27
+    400048: Pipe3
+    400050: Pipes
+    400052: pipes
+    400054: Pipes 1
+    400056: pipes1
+    400058: PowerAbsorbers
+    400060: PowerBox
+    400062: //RootNode
+    400064: Top
+    400066: TopPowerAbsorbers
+    400068: TopStand
+    400070: Wire
+    400072: Wire1
+    400074: Wire2
+    400076: WireConnector3
+    400078: WireConnector4
+    400080: WireConnector5
+    400082: WireConnector6
+    400084: WireConnectors
+    2100000: UV1
+    2100002: UV2
+    2300000: Absorber
+    2300002: Absorber 1
+    2300004: Absorber1
+    2300006: Absorber1 1
+    2300008: Absorber2
+    2300010: Absorber2 1
+    2300012: Absorber3
+    2300014: Absorber3 1
+    2300016: BottomStand
+    2300018: Door
+    2300020: Pipe15
+    2300022: Pipe16
+    2300024: Pipe17
+    2300026: Pipe18
+    2300028: Pipe19
+    2300030: Pipe20
+    2300032: Pipe21
+    2300034: Pipe22
+    2300036: Pipe23
+    2300038: Pipe24
+    2300040: Pipe25
+    2300042: Pipe26
+    2300044: Pipe27
+    2300046: Pipe3
+    2300048: pipes
+    2300050: pipes1
+    2300052: PowerBox
+    2300054: TopStand
+    2300056: Wire
+    2300058: Wire1
+    2300060: Wire2
+    2300062: WireConnector3
+    2300064: WireConnector4
+    2300066: WireConnector5
+    2300068: WireConnector6
+    3300000: Absorber
+    3300002: Absorber 1
+    3300004: Absorber1
+    3300006: Absorber1 1
+    3300008: Absorber2
+    3300010: Absorber2 1
+    3300012: Absorber3
+    3300014: Absorber3 1
+    3300016: BottomStand
+    3300018: Door
+    3300020: Pipe15
+    3300022: Pipe16
+    3300024: Pipe17
+    3300026: Pipe18
+    3300028: Pipe19
+    3300030: Pipe20
+    3300032: Pipe21
+    3300034: Pipe22
+    3300036: Pipe23
+    3300038: Pipe24
+    3300040: Pipe25
+    3300042: Pipe26
+    3300044: Pipe27
+    3300046: Pipe3
+    3300048: pipes
+    3300050: pipes1
+    3300052: PowerBox
+    3300054: TopStand
+    3300056: Wire
+    3300058: Wire1
+    3300060: Wire2
+    3300062: WireConnector3
+    3300064: WireConnector4
+    3300066: WireConnector5
+    3300068: WireConnector6
+    4300000: TopStand
+    4300002: Absorber
+    4300004: Absorber1
+    4300006: Absorber2
+    4300008: Absorber3
+    4300010: WireConnector3
+    4300012: WireConnector4
+    4300014: WireConnector5
+    4300016: WireConnector6
+    4300018: Pipe27
+    4300020: Pipe26
+    4300022: Pipe25
+    4300024: Pipe24
+    4300026: Pipe16
+    4300028: Pipe23
+    4300030: Pipe17
+    4300032: Pipe22
+    4300034: Pipe21
+    4300036: Pipe20
+    4300038: Pipe18
+    4300040: Pipe19
+    4300042: Pipe15
+    4300044: Pipe3
+    4300046: BottomStand
+    4300048: Absorber
+    4300050: Absorber1
+    4300052: Absorber2
+    4300054: Absorber3
+    4300056: PowerBox
+    4300058: Wire
+    4300060: pipes
+    4300062: pipes1
+    4300064: Door
+    4300066: Wire1
+    4300068: Wire2
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

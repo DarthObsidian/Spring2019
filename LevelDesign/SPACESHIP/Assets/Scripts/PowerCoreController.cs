@@ -5,30 +5,15 @@ using UnityEngine.Experimental.VFX;
 
 public class PowerCoreController : MonoBehaviour
 {
-    private Animator anim;
-    public VisualEffect vfx;
-
-    private int coolDown = 2;
+    Animator anim;
 
     void Start()
     {
-        anim = GetComponent<Animator>();
-        StartCoroutine(Play());    
+        anim = GetComponent<Animator>(); 
     }
 
-    IEnumerator Play()
+    public void SetState()
     {
-        while(true)
-        {
-            int num = Random.Range(0,10);
-            if(num > 6 && coolDown < 1)
-            {
-                anim.SetBool("break", true);
-                vfx.SetVector2("MinMax", new Vector2(1,5));
-                coolDown = 10;
-            }
-            yield return new WaitForSeconds(3f);
-            coolDown--;
-        }  
+        anim.GetBehaviour<BreakState>().SetState();
     }
 }
