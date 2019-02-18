@@ -11,19 +11,21 @@ public class SquadController : MonoBehaviour
     private FollowBehaviour follow;
 
     public int range;
+    bool eAlive;
 
     private void Start()
     {
         ai = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         follow = anim.GetBehaviour<FollowBehaviour>();
-        range = 2;
+        range = 5;
     }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.R))
         {
+            eAlive = false;
             anim.SetBool("Order", false);
             anim.SetBool("FollowPlayer", true);
         }
@@ -31,11 +33,11 @@ public class SquadController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("yo");
         if(other.tag == "Enemy")
         {
             anim.SetBool("FollowPlayer", false);
-            Attack(other.transform);
+            anim.SetBool("Order", false);
+            StartCoroutine(Attack(other.transform));
         }
     }
 
@@ -43,7 +45,7 @@ public class SquadController : MonoBehaviour
     {
         if(_tag == "order")
         {
-            print("hi");
+            eAlive = false;
             anim.SetBool("FollowPlayer", false);
             anim.SetBool("Order", true);
             follow.SetDest(_loc);
@@ -52,16 +54,24 @@ public class SquadController : MonoBehaviour
         }
     }
 
-    private void Attack(Transform _enemyLoc)
+    IEnumerator Attack(Transform _enemyLoc)
     {
-        if(Vector3.Distance(_enemyLoc.position, transform.position) < range)
+        eAlive = true;
+        while(eAlive)
         {
-            ai.SetDestination(_enemyLoc.position);
-            ai.stoppingDistance = range;
-        }
-        else
-        {
-            print("attak");
+            if(Vector3.Distance(_enemyLoc.position, transform.position) > range)
+            {
+                ai.SetDestination(_enemyLoc.position);
+                follow.SetDest(_enemyLoc.position);
+                ai.stoppingDistance = range;
+            }
+            else
+            {
+                ai.SetDestination(_enemyLoc.position);
+                ai.stoppingDistance = range;
+                print("attack");
+            }
+            yield return new WaitForSeconds(1.0f);
         }
     }
 }
