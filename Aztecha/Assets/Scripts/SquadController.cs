@@ -10,11 +10,14 @@ public class SquadController : MonoBehaviour
     private Animator anim;
     private FollowBehaviour follow;
 
+    public int range;
+
     private void Start()
     {
         ai = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         follow = anim.GetBehaviour<FollowBehaviour>();
+        range = 2;
     }
 
     private void Update()
@@ -23,6 +26,16 @@ public class SquadController : MonoBehaviour
         {
             anim.SetBool("Order", false);
             anim.SetBool("FollowPlayer", true);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        print("yo");
+        if(other.tag == "Enemy")
+        {
+            anim.SetBool("FollowPlayer", false);
+            Attack(other.transform);
         }
     }
 
@@ -36,6 +49,19 @@ public class SquadController : MonoBehaviour
             follow.SetDest(_loc);
             ai.SetDestination(_loc);
             ai.stoppingDistance = 0;
+        }
+    }
+
+    private void Attack(Transform _enemyLoc)
+    {
+        if(Vector3.Distance(_enemyLoc.position, transform.position) < range)
+        {
+            ai.SetDestination(_enemyLoc.position);
+            ai.stoppingDistance = range;
+        }
+        else
+        {
+            print("attak");
         }
     }
 }

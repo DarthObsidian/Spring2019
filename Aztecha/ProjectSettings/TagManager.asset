@@ -6,6 +6,7 @@ TagManager:
   tags:
   - order
   - squad
+  - Enemy
   layers:
   - Default
   - TransparentFX
