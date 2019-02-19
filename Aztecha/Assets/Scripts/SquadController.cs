@@ -12,6 +12,7 @@ public class SquadController : MonoBehaviour
 
     public int range;
     bool eAlive;
+    public GameObject hitbox;
 
     private void Start()
     {
@@ -67,9 +68,12 @@ public class SquadController : MonoBehaviour
             }
             else
             {
+                hitbox.SetActive(true);
                 ai.SetDestination(_enemyLoc.position);
                 ai.stoppingDistance = range;
                 print("attack");
+                yield return new WaitForSeconds(0.01f);
+                hitbox.SetActive(false);
             }
             yield return new WaitForSeconds(1.0f);
         }
