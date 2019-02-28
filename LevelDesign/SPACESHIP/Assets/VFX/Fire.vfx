@@ -188,6 +188,7 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
+  title: 
   m_Owners:
   - {fileID: 114946465509916290}
   - {fileID: 114780028408030698}
@@ -787,9 +788,9 @@ VisualEffectResource:
       = o.VFX_VARYING_UV.xy * uvScale + uvBias;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\t\t\t#if
       defined(VFX_VARYING_POSWS)\n\t\t\t\t\t\to.VFX_VARYING_POSWS = TransformPositionVFXToWorld(vPos);\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t\t#if
       USE_FLIPBOOK\n\t\t\t\t\t\tfloat2 flipBookSize = (float2)0;\n\t\t\t\t\t\t{\n\t\t\t\t\t\t
-      \   \n\t\t\t\t\t\t    flipBookSize = float2(8,4);\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t\tfloat2
+      \   \n\t\t\t\t\t\t    flipBookSize = float2(8,8);\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t\tfloat2
       invFlipBookSize = (float2)0;\n\t\t\t\t\t\t{\n\t\t\t\t\t\t    \n\t\t\t\t\t\t
-      \   invFlipBookSize = float2(0.125,0.25);\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t\tVFXUVData
+      \   invFlipBookSize = float2(0.125,0.125);\n\t\t\t\t\t\t}\n\t\t\t\t\t\t\n\t\t\t\t\n\t\t\t\t\t\tVFXUVData
       uvData = GetUVData(flipBookSize, invFlipBookSize, o.VFX_VARYING_UV.xy, texIndex);\n\t\t\t\t\t\to.VFX_VARYING_UV.xy
       = uvData.uvs.xy;\n\t\t\t\t\t\t#if USE_FLIPBOOK_INTERPOLATION\n\t\t\t\t\t\to.VFX_VARYING_UV.zw
       = uvData.uvs.zw;\n\t\t\t\t\t\to.VFX_VARYING_FRAMEBLEND = uvData.blend;\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t#endif\n\t\t\t\t\t\t\n\t\t\t\n\t\t\t\t\n\t\t\t\n\t\t\t\treturn
@@ -896,9 +897,9 @@ VisualEffectResource:
       m_Vector2f:
         m_Array:
         - m_ExpressionIndex: 0
-          m_Value: {x: 8, y: 4}
+          m_Value: {x: 8, y: 8}
         - m_ExpressionIndex: 2
-          m_Value: {x: 0.125, y: 0.25}
+          m_Value: {x: 0.125, y: 0.125}
       m_Vector3f:
         m_Array:
         - m_ExpressionIndex: 5
@@ -920,7 +921,7 @@ VisualEffectResource:
       m_NamedObject:
         m_Array:
         - m_ExpressionIndex: 4
-          m_Value: {fileID: 2800000, guid: 5e83805ecb1a0584c979cace5861d3fe, type: 3}
+          m_Value: {fileID: 2800000, guid: a0a243891db69d743aa08a4066effb00, type: 3}
       m_Bool:
         m_Array: []
     m_ExposedExpressions: []
@@ -1332,7 +1333,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"5e83805ecb1a0584c979cace5861d3fe","type":3}}'
+      m_SerializableObject: '{"obj":{"fileID":2800000,"guid":"a0a243891db69d743aa08a4066effb00","type":3}}'
     m_Space: 2147483647
   m_Property:
     name: mainTexture
@@ -1449,7 +1450,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.Vector2, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"x":8.0,"y":4.0}'
+      m_SerializableObject: '{"x":8.0,"y":8.0}'
     m_Space: 2147483647
   m_Property:
     name: flipBookSize
