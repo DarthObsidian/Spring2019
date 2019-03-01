@@ -13,7 +13,7 @@ public class LightFlicker : MonoBehaviour
     void Start()
     {
         lt = GetComponent<Light>();
-        random = Random.Range(0.0f, 65535.0f);
+        random = Random.Range(0.0f, 2000.0f);
     }
  
     void Update()
