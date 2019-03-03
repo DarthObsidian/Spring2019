@@ -18,6 +18,7 @@ ModelImporter:
     400010: //RootNode
     400012: Top
     2100000: lambert1
+    2100002: UV1
     2300000: Bottom
     2300002: Clip
     2300004: Clip4
