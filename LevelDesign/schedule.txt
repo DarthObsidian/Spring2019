@@ -1,0 +1,40 @@
+PowerCore:
+Models:
+roof, doors, crowbar
+
+Front room:
+Models:
+doors, Consoles, Intercomm, walls, roof, light sources
+VFX: 
+Console interface
+Lighting: Consoles, light sources
+
+Engine room:
+Models:
+Ladder, console, Engines, Floors, walls, roof, collectable, door, light sources
+VFX: console
+Lighting: console, light sources
+
+March 10
+Door, Roof, Intercomm: Model and UV
+
+March 17
+Wall, Light sources, Consoles: Model and UV
+
+March 24
+Spring Break
+
+March 31
+Wall, Roof, Consoles, Intercomm, Light sources
+
+April 7
+Console shader, lighting
+
+April 14
+Audio
+
+April 21
+Audio
+
+April 28
+Polish

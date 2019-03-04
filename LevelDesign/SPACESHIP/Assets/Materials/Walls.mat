@@ -30,9 +30,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseColorMap:
-        m_Texture: {fileID: 2800000, guid: 3d492a94fd60ea64c869ed57bc3e243e, type: 3}
-        m_Scale: {x: 20, y: 6}
-        m_Offset: {x: 0, y: 0}
+        m_Texture: {fileID: 2800000, guid: 5ac04feda5c05ec4ca02afcb91cc1bd5, type: 3}
+        m_Scale: {x: 10, y: 9}
+        m_Offset: {x: 0, y: -0.23}
     - _BentNormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -58,7 +58,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
-        m_Texture: {fileID: 2800000, guid: 251d21a6826ba0d469f542a4f7920f3b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 68045849cb3ced84481ebf8e004409a5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _IridescenceMaskMap:
@@ -70,15 +70,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3d492a94fd60ea64c869ed57bc3e243e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5ac04feda5c05ec4ca02afcb91cc1bd5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
-        m_Texture: {fileID: 2800000, guid: f0c8a8187235aeb41a50f3379533976b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3c20a1a5f8f652a45aeed792f06f2de7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: 992174165cc68a449bc3c2fbf216133b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 96f49e77400a0b847bff0cfe1e7685a6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
@@ -170,7 +170,7 @@ Material:
     - _HeightTessAmplitude: 2
     - _HeightTessCenter: 0.5
     - _InitialBend: 1
-    - _InvTilingScale: 0.07692308
+    - _InvTilingScale: 0.10526316
     - _Ior: 1
     - _IridescenceMask: 1
     - _IridescenceThickness: 1
@@ -223,6 +223,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
