@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
 	public LayerMask squad;
 	private GameObject activeChar;
 	public Camera cam;
+	public List<SquadAIFSM> squadMembers;
 
 	void Awake()
 	{
@@ -51,12 +52,12 @@ public class PlayerController : MonoBehaviour
 			MoveInput();
 			Attack();
 			Defend();
-			Order();
+			OrderInput();
 			yield return new WaitForSeconds(0.01f);
 		}
 	}
 
-	void Order()
+	void OrderInput()
 	{
 		Debug.DrawRay((cam.transform.position + new Vector3(0,0.5f,0)), cam.transform.forward * 100, Color.red);
 		RaycastHit hit;
@@ -64,14 +65,22 @@ public class PlayerController : MonoBehaviour
 		{
 			if(Input.GetKeyDown(KeyCode.E) && hit.collider.tag == "squad")
 			{
-				print(hit.collider.name);
 				activeChar = hit.collider.gameObject;			
 			}
 			else if(Input.GetKeyDown(KeyCode.Q) && activeChar != null)
 			{
-				print(hit.collider.name);
-				activeChar.GetComponent<SquadController>().PerformOrder(hit.collider.gameObject.tag, hit.collider.transform.position);
+				activeChar.GetComponent<SquadAIFSM>().orderDest = hit.collider.gameObject.transform;
+				activeChar.GetComponent<SquadAIFSM>().SetState(SquadAIFSM.State.ORDER);
+
 				activeChar = null;
+			}
+		}
+
+		if(Input.GetKeyDown(KeyCode.R))
+		{
+			foreach (SquadAIFSM member in squadMembers)
+			{
+				member.SetState(SquadAIFSM.State.FOLLOW);
 			}
 		}
 	}
