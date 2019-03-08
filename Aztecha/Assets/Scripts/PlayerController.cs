@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {   
 	[HideInInspector] public Animator anim;
-	
+
     //basic movement
     private CharacterController cc;
 	public float verticalVelocity = 0.0f;

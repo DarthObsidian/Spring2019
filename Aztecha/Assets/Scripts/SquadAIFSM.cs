@@ -11,15 +11,21 @@ public class SquadAIFSM : MonoBehaviour
     NavMeshAgent ai;
     State state = State.IDLE;
     bool alive;
+    float timeScale = 0.01f;
 
-    //variables for following
+    //variables for following player
     public GameObject player;
     public float followDist;
     public float walkSpeed;
 
-    //variables for pursuing
-    public GameObject currentTarget;
+    //variables for line of sight
+    public float sightDist;
+    public float height;
+
+    //variables for pursuing enemies
+    [HideInInspector] public GameObject currentTarget;
     public float range, runSpeed;
+    public bool canPursue;
 
     //variables for orders
     public Transform orderDest;
@@ -31,35 +37,78 @@ public class SquadAIFSM : MonoBehaviour
     {
         ai = GetComponent<NavMeshAgent>();
         alive = true;
-        StartCoroutine(FSM());
+        canPursue = true;
+        StartCoroutine(Play());
     }
 
-    IEnumerator FSM()
+    IEnumerator Play()
     {
         while(alive)
         {
-            switch (state)
+            Scan();
+            FSM();
+            yield return new WaitForSeconds(timeScale);
+        }
+    }
+
+    //Created line of sight and if an enemy is seen changes state to be PURSUE
+    void Scan()
+    {
+        Debug.DrawRay(transform.position + Vector3.up * height, transform.forward * sightDist, Color.green);
+        Debug.DrawRay(transform.position + Vector3.up * height, (transform.forward + transform.right).normalized * sightDist, Color.green);
+        Debug.DrawRay(transform.position + Vector3.up * height, (transform.forward - transform.right).normalized * sightDist, Color.green);
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.forward, out hit, sightDist))
+        {
+            if(hit.collider.tag == "Enemy" && currentTarget == null)
             {
-                case State.IDLE:
-                    Idle();
-                    break;
-                case State.FOLLOW:
-                    Follow();
-                    break;
-                case State.ATTACK:
-                    Attack();
-                    break;
-                case State.PURSUE:
-                    Pursue();
-                    break;
-                case State.ORDER:
-                    Order();
-                    break;
-                default:
-                    Debug.LogWarning("No valid state");
-                    break;
+                currentTarget = hit.collider.gameObject;
+                SetState(State.PURSUE);
             }
-            yield return new WaitForSeconds(0.01f);
+        }
+        if(Physics.Raycast(transform.position, (transform.forward + transform.right).normalized, out hit, sightDist))
+        {
+            if(hit.collider.tag == "Enemy" && currentTarget == null)
+            {
+                currentTarget = hit.collider.gameObject;
+                SetState(State.PURSUE);
+            }
+        }
+        if(Physics.Raycast(transform.position, (transform.forward + transform.right).normalized, out hit, sightDist))
+        {
+            if(hit.collider.tag == "Enemy" && currentTarget == null)
+            {
+                currentTarget = hit.collider.gameObject;
+                SetState(State.PURSUE);
+            }
+        }
+    }
+
+    void FSM()
+    {
+        switch (state)
+        {
+            case State.IDLE:
+                Idle();
+                break;
+            case State.FOLLOW:
+                Follow();
+                break;
+            case State.ATTACK:
+                Attack();
+                break;
+            case State.PURSUE:
+                if(canPursue)
+                {   
+                    Pursue();
+                }
+                break;
+            case State.ORDER:
+                Order();
+                break;
+            default:
+                Debug.LogWarning("No valid state");
+                break;
         }
     }
 
@@ -70,6 +119,7 @@ public class SquadAIFSM : MonoBehaviour
 
     void Follow()
     {
+        currentTarget = null;
         ai.SetDestination(player.transform.position);
         ai.stoppingDistance = followDist;
         ai.speed = walkSpeed;

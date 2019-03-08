@@ -510,8 +510,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622475997}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.1, y: 1.6, z: 15.149004}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 14.1, y: 2.24, z: 15.149004}
+  m_LocalScale: {x: 2.0097, y: 2.0097, z: 2.0097}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
@@ -1478,10 +1478,14 @@ MonoBehaviour:
   player: {fileID: 780429974}
   followDist: 5
   walkSpeed: 5
+  sightDist: 25
+  height: 0.5
   currentTarget: {fileID: 0}
-  range: 3
+  range: 5
   runSpeed: 5
+  canPursue: 0
   orderDest: {fileID: 0}
+  hitBox: {fileID: 0}
 --- !u!1 &817377715
 GameObject:
   m_ObjectHideFlags: 3
