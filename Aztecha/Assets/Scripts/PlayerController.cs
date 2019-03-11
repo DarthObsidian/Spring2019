@@ -5,12 +5,18 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {   
+#region VARIABLES
 	[HideInInspector] public Animator anim;
 
     //basic movement
     private CharacterController cc;
 	public float verticalVelocity = 0.0f;
-	public float speed = 10.0f;
+	
+	public float jogSpeed = 10.0f;
+	public float runSpeed = 15.0f;
+	public float walkSpeed = 5.0f;
+	float speed;
+	
 	Vector3 move = Vector3.zero;
     public bool canMove = true;
     public Camera maincam;
@@ -31,6 +37,7 @@ public class PlayerController : MonoBehaviour
 	private GameObject activeChar;
 	public Camera cam;
 	public List<SquadAIFSM> squadMembers;
+#endregion
 
 	void Awake()
 	{
@@ -42,6 +49,7 @@ public class PlayerController : MonoBehaviour
 	{
 		anim = GetComponent<Animator>();
 		cc = GetComponent<CharacterController>();
+		speed = jogSpeed;
 		StartCoroutine(PlayGame());
 	}
 
@@ -50,13 +58,14 @@ public class PlayerController : MonoBehaviour
 		while(canMove)
 		{
 			MoveInput();
-			Attack();
-			Defend();
+			AttackInput();
+			DefendInput();
 			OrderInput();
 			yield return new WaitForSeconds(0.01f);
 		}
 	}
 
+	//input for giving orders
 	void OrderInput()
 	{
 		Debug.DrawRay((cam.transform.position + new Vector3(0,0.5f,0)), cam.transform.forward * 100, Color.red);
@@ -109,6 +118,24 @@ public class PlayerController : MonoBehaviour
 				rolling = true;
 			}
 
+			//sets the speed
+			if(Input.GetKeyDown(KeyCode.LeftShift))
+			{
+				speed = runSpeed;
+			}
+			else if (Input.GetKeyUp(KeyCode.LeftShift))
+			{
+				speed = jogSpeed;
+			}
+			else if(Input.GetKeyDown(KeyCode.LeftControl))
+			{
+				speed = walkSpeed;
+			}
+			else if (Input.GetKeyUp(KeyCode.LeftControl))
+			{
+				speed = jogSpeed;
+			}
+
 			//this makes the character controller move based off the local rotation and not global
 			float moveX = Input.GetAxis("Horizontal");
 			float moveZ = Input.GetAxis("Vertical");
@@ -128,7 +155,8 @@ public class PlayerController : MonoBehaviour
 		cc.Move(movement * Time.deltaTime);
 	}
 
-	void Attack()
+	//Input for attacking
+	void AttackInput()
 	{
 		if(Input.GetMouseButtonDown(0) && !rolling)
 		{
@@ -140,7 +168,8 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	void Defend()
+	//input for defending
+	void DefendInput()
 	{
 		if(Input.GetMouseButtonDown(1) && !rolling)
 		{
