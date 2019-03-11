@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObjectEnable : Interact
 {
-    public GameObject obj;
+    public List<GameObject> objs;
     public bool state;
     public string message;
 
@@ -24,7 +24,10 @@ public class ObjectEnable : Interact
         {
             if(player.GetComponent<PlayerController>().equippedItem != null && player.GetComponent<PlayerController>().equippedItem.name == requiredItem.name)
             {
-                obj.SetActive(state);
+                foreach (GameObject obj in objs)
+                {
+                    obj.SetActive(state);
+                }
                 print(message);
             }
             else
@@ -34,7 +37,10 @@ public class ObjectEnable : Interact
         }
         else
         {
-            obj.SetActive(state);
+            foreach (GameObject obj in objs)
+            {
+                obj.SetActive(state);
+            }
             print(message);
         }
     }

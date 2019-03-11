@@ -1,8 +1,9 @@
 //Maya ASCII 2018 scene
-//Name: Projectotr.ma
-//Last modified: Mon, Mar 11, 2019 10:16:32 AM
+//Name: Projector.ma
+//Last modified: Mon, Mar 11, 2019 12:26:42 PM
 //Codeset: 1252
 requires maya "2018";
+requires "stereoCamera" "10.0";
 requires "stereoCamera" "10.0";
 currentUnit -l centimeter -a degree -t film;
 fileInfo "application" "maya";
@@ -14,19 +15,19 @@ fileInfo "license" "student";
 createNode transform -s -n "persp";
 	rename -uid "7AA88FB4-43B1-F555-24A4-0CAC25DBBEA1";
 	setAttr ".v" no;
-	setAttr ".t" -type "double3" 5.3948596907006809 -2.0456197542706689 8.9777917142010075 ;
-	setAttr ".r" -type "double3" 888.26164721890473 569.79999999980316 359.99999999999989 ;
+	setAttr ".t" -type "double3" -0.38785500097360481 -1.7593483074529646 6.8758472313308632 ;
+	setAttr ".r" -type "double3" 884.66164721887753 545.79999999979464 359.99999999999858 ;
 	setAttr ".rp" -type "double3" -1.7763568394002505e-15 0 -7.1054273576010019e-15 ;
 	setAttr ".rpt" -type "double3" 2.5279338183135154e-14 -2.3674462333169536e-15 6.1483376696610885e-15 ;
 createNode camera -s -n "perspShape" -p "persp";
 	rename -uid "03C3418C-4837-D913-9401-A79D38B363FC";
 	setAttr -k off ".v" no;
 	setAttr ".fl" 34.999999999999993;
-	setAttr ".coi" 10.943245081873421;
+	setAttr ".coi" 7.2826075363489782;
 	setAttr ".imn" -type "string" "persp";
 	setAttr ".den" -type "string" "persp_depth";
 	setAttr ".man" -type "string" "persp_mask";
-	setAttr ".tp" -type "double3" -1.0953707098960876 0.26995372772216797 0.33875823020935059 ;
+	setAttr ".tp" -type "double3" 0 0.47372949123382568 0 ;
 	setAttr ".hc" -type "string" "viewSet -p %camera";
 createNode transform -s -n "top";
 	rename -uid "FD459AB3-4CD2-FB5A-60FF-1195F94DA350";
@@ -186,31 +187,43 @@ createNode mesh -n "ProjectorArrayShape" -p "ProjectorArray";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
-	setAttr ".pv" -type "double2" 0.49893355895757829 0.29926033470095426 ;
+	setAttr ".pv" -type "double2" 0.50955178216099739 0.30018957047153033 ;
 	setAttr ".uvst[0].uvsn" -type "string" "map1";
-	setAttr -s 88 ".uvst[0].uvsp[0:87]" -type "float2" 0.11914691 0.92988801
-		 0.085460171 0.46870002 0.023455337 0.42177951 0.060754962 0.88614595 0.12432955 0.93269682
-		 0.11916384 0.62023544 0.12433507 0.61741543 0.090553969 0.47040623 0.89476824 0.93273008
-		 0.90825194 0.47027624 0.089316815 0.47848329 0.11877567 0.61410964 0.91339964 0.46853137
-		 0.89994067 0.92990971 0.9580332 0.88623631 0.97669643 0.41896006 0.91715544 0.4755618
-		 0.89483613 0.61224902 0.89995658 0.62025738 0.11914822 0.62027228 0.061057396 0.66394603
+	setAttr ".cuvs" -type "string" "map1";
+	setAttr ".dcc" -type "string" "Ambient+Diffuse";
+	setAttr ".covm[0]"  0 1 1;
+	setAttr ".cdvm[0]"  0 1 1;
+createNode mesh -n "polySurfaceShape1" -p "ProjectorArray";
+	rename -uid "F110FC9B-4366-DED2-7DDD-928FED556872";
+	setAttr -k off ".v";
+	setAttr ".io" yes;
+	setAttr ".vir" yes;
+	setAttr ".vif" yes;
+	setAttr ".pv" -type "double2" 0.50955178216099739 0.30018957047153033 ;
+	setAttr ".uvst[0].uvsn" -type "string" "map1";
+	setAttr -s 88 ".uvst[0].uvsp[0:87]" -type "float2" 0.11914691 0.45500514
+		 0.085460171 0.47123092 0.023455337 0.42431042 0.060754962 0.41126308 0.12432955 0.45781395
+		 0.11916384 0.14535256 0.12433507 0.14253254 0.090553969 0.47293714 0.89476824 0.45784721
+		 0.90825194 0.47280714 0.089316815 0.48101419 0.11877567 0.61410964 0.91339964 0.47106227
+		 0.89994067 0.45502684 0.9580332 0.41135344 0.97669643 0.42149097 0.91715544 0.4780927
+		 0.89483613 0.61224902 0.89995658 0.14537449 0.11914822 0.62027228 0.061057396 0.66394603
 		 0.058593668 0.65939331 0.12431936 0.61745167 0.89475918 0.61741233 0.12434538 0.93273258
-		 0.11916316 0.92992449 0.89994133 0.62022066 0.98310918 0.42368558 0.95833534 0.66395044
-		 0.89995533 0.92987227 0.080711529 0.12295888 0.014758714 0.17483498 0.060769089 0.88619459
-		 0.088492483 0.12017201 0.089615002 0.12824455 0.11879134 0.61407268 0.91626877 0.12252373
-		 0.9580462 0.88619864 0.96051061 0.89075184 0.91240686 0.12982063 0.061070301 0.66390908
-		 0.021170683 0.17956068 0.9744125 0.17674103 0.95835054 0.6639986 0.97679204 0.18171866
-		 0.96312737 0.88537169 0.97915143 0.41403002 0.98695308 0.41545051 0.055956043 0.66476727
-		 0.010914057 0.18307011 0.021075062 0.41680223 0.05597619 0.66477334 0.89478332 0.93269277
-		 0.89485288 0.6122849 0.89477396 0.61744845 0.9085502 0.12003739 0.055641927 0.88531625
-		 0.013375513 0.41856354 0.017250933 0.4263992 0.055628218 0.88526666 0.058310844 0.89071381
-		 0.018716544 0.18449062 0.058324911 0.89076257 0.058603443 0.6593585 0.96346164 0.66482866
-		 0.98449224 0.1799569 0.96077937 0.6593827 0.96050018 0.89078689 0.96314657 0.88537908
-		 0.96347535 0.66487873 0.98061699 0.17212111 0.96079284 0.65943193 0.90030432 0.61408341
-		 0.12425886 0.61226439 0.90731388 0.12811439 0.084467381 0.12998937 0.89486086 0.93784404
+		 0.11916316 0.92992449 0.89994133 0.62022066 0.98310918 0.42621648 0.95833534 0.66395044
+		 0.89995533 0.92987227 0.080711529 0.12548977 0.014758714 0.17736587 0.060769089 0.88619459
+		 0.088492483 0.1227029 0.089615002 0.13077544 0.11879134 0.13918979 0.91626877 0.12505463
+		 0.9580462 0.88619864 0.96051061 0.89075184 0.91240686 0.13235152 0.061070301 0.18902619
+		 0.021170683 0.18209156 0.9744125 0.17927192 0.95835054 0.18911572 0.97679204 0.18424955
+		 0.96312737 0.88537169 0.97915143 0.41656092 0.98695308 0.41798142 0.055956043 0.18988438
+		 0.010914057 0.185601 0.021075062 0.41933313 0.05597619 0.66477334 0.89478332 0.93269277
+		 0.89485288 0.13740201 0.89477396 0.14256556 0.9085502 0.12256828 0.055641927 0.88531625
+		 0.013375513 0.42109445 0.017250933 0.4289301 0.055628218 0.41038379 0.058310844 0.41583094
+		 0.018716544 0.18702151 0.058324911 0.89076257 0.058603443 0.18447562 0.96346164 0.66482866
+		 0.98449224 0.18248779 0.96077937 0.6593827 0.96050018 0.41590402 0.96314657 0.41049621
+		 0.96347535 0.18999584 0.98061699 0.174652 0.96079284 0.18454905 0.90030432 0.13920052
+		 0.12425886 0.13738151 0.90731388 0.13064528 0.084467381 0.13252026 0.89486086 0.93784404
 		 0.9003281 0.9360348 0.11881539 0.9360981 0.12426831 0.93789589 0.90028912 0.61404693
-		 0.1242436 0.61230099 0.90937513 0.47834817 0.081598222 0.47599694 0.89484578 0.93788052
-		 0.90031302 0.93607247 0.11879903 0.93606186 0.12425168 0.93785977;
+		 0.1242436 0.61230099 0.90937513 0.48087907 0.081598222 0.47852784 0.89484578 0.46299765
+		 0.90031302 0.4611896 0.11879903 0.46117899 0.12425168 0.4629769;
 	setAttr ".cuvs" -type "string" "map1";
 	setAttr ".dcc" -type "string" "Ambient+Diffuse";
 	setAttr ".covm[0]"  0 1 1;
@@ -818,19 +831,19 @@ createNode mesh -n "PowerBoxShape" -p "PowerBox";
 	setAttr ".pd[0]" -type "dataPolyComponent" Index_Data UV 0 ;
 	setAttr ".hfd" -type "dataPolyComponent" Index_Data Face 0 ;
 createNode lightLinker -s -n "lightLinker1";
-	rename -uid "D1BB8929-4CB7-5EB0-A925-1EA4B8156E38";
+	rename -uid "FCDD9F10-4F82-BAFB-71B6-808E5F29998A";
 	setAttr -s 9 ".lnk";
 	setAttr -s 9 ".slnk";
 createNode shapeEditorManager -n "shapeEditorManager";
-	rename -uid "0DABA19F-40E7-DEB3-756D-CA9789ADD7EF";
+	rename -uid "7693212A-43E9-21AD-697E-43BF7742892F";
 createNode poseInterpolatorManager -n "poseInterpolatorManager";
-	rename -uid "134BC8D4-4F4B-5901-7DD9-359D804FB1BB";
+	rename -uid "1FE03076-49C1-918B-BF2A-978F558EC328";
 createNode displayLayerManager -n "layerManager";
-	rename -uid "69897A60-44E3-CA89-2D00-DC862BF2247F";
+	rename -uid "FAA3F28B-4062-1A4E-86F7-899E28761D32";
 createNode displayLayer -n "defaultLayer";
 	rename -uid "D114DF29-4FDA-2CEB-D5BF-0D8B098F04F1";
 createNode renderLayerManager -n "renderLayerManager";
-	rename -uid "0429720F-40FC-1C0A-8797-A8A1422C623D";
+	rename -uid "485011B9-4B6A-AAB8-A698-EB9AEA4E6545";
 createNode renderLayer -n "defaultRenderLayer";
 	rename -uid "25DBB725-41BA-5085-DFFE-16944883BF02";
 	setAttr ".g" yes;
@@ -1125,47 +1138,53 @@ createNode file -n "file3";
 	setAttr ".cs" -type "string" "sRGB";
 createNode place2dTexture -n "place2dTexture3";
 	rename -uid "893B0D10-4825-E16F-96CF-EA83FD10D71F";
+createNode polySoftEdge -n "polySoftEdge1";
+	rename -uid "18A9E577-4440-0B12-46FB-E4B96F3BEFC4";
+	setAttr ".uopa" yes;
+	setAttr ".ics" -type "componentList" 1 "e[0:111]";
+	setAttr ".ix" -type "matrix" 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1;
+	setAttr ".a" 180;
 createNode nodeGraphEditorInfo -n "hyperShadePrimaryNodeEditorSavedTabsInfo";
-	rename -uid "D2BEE3B0-465C-DEAF-A1C9-82B3E307E212";
+	rename -uid "DE75B817-41A5-74A3-9419-E5BEC56B7C46";
 	setAttr ".tgi[0].tn" -type "string" "Untitled_1";
-	setAttr ".tgi[0].vl" -type "double2" -330.95236780151544 48.809521870007671 ;
-	setAttr ".tgi[0].vh" -type "double2" 317.85713022663526 338.09522466054096 ;
+	setAttr ".tgi[0].vl" -type "double2" -330.35712972992997 234.52380020467101 ;
+	setAttr ".tgi[0].vh" -type "double2" 318.45236829822073 523.8095029952043 ;
 	setAttr -s 12 ".tgi[0].ni";
-	setAttr ".tgi[0].ni[0].x" 54.285713195800781;
+	setAttr ".tgi[0].ni[0].x" -252.85714721679688;
 	setAttr ".tgi[0].ni[0].y" 335.71429443359375;
 	setAttr ".tgi[0].ni[0].nvs" 1923;
-	setAttr ".tgi[0].ni[1].x" 361.42855834960938;
-	setAttr ".tgi[0].ni[1].y" 312.85714721679688;
+	setAttr ".tgi[0].ni[1].x" -252.85714721679688;
+	setAttr ".tgi[0].ni[1].y" 335.71429443359375;
 	setAttr ".tgi[0].ni[1].nvs" 1923;
 	setAttr ".tgi[0].ni[2].x" -560;
 	setAttr ".tgi[0].ni[2].y" 312.85714721679688;
 	setAttr ".tgi[0].ni[2].nvs" 1923;
-	setAttr ".tgi[0].ni[3].x" -252.85714721679688;
-	setAttr ".tgi[0].ni[3].y" 335.71429443359375;
+	setAttr ".tgi[0].ni[3].x" -560;
+	setAttr ".tgi[0].ni[3].y" 312.85714721679688;
 	setAttr ".tgi[0].ni[3].nvs" 1923;
 	setAttr ".tgi[0].ni[4].x" 361.42855834960938;
 	setAttr ".tgi[0].ni[4].y" 312.85714721679688;
 	setAttr ".tgi[0].ni[4].nvs" 1923;
-	setAttr ".tgi[0].ni[5].x" -560;
+	setAttr ".tgi[0].ni[5].x" 361.42855834960938;
 	setAttr ".tgi[0].ni[5].y" 312.85714721679688;
 	setAttr ".tgi[0].ni[5].nvs" 1923;
-	setAttr ".tgi[0].ni[6].x" 361.42855834960938;
+	setAttr ".tgi[0].ni[6].x" -560;
 	setAttr ".tgi[0].ni[6].y" 312.85714721679688;
 	setAttr ".tgi[0].ni[6].nvs" 1923;
-	setAttr ".tgi[0].ni[7].x" 54.285713195800781;
+	setAttr ".tgi[0].ni[7].x" -252.85714721679688;
 	setAttr ".tgi[0].ni[7].y" 335.71429443359375;
 	setAttr ".tgi[0].ni[7].nvs" 1923;
-	setAttr ".tgi[0].ni[8].x" -252.85714721679688;
+	setAttr ".tgi[0].ni[8].x" 54.285713195800781;
 	setAttr ".tgi[0].ni[8].y" 335.71429443359375;
 	setAttr ".tgi[0].ni[8].nvs" 1923;
 	setAttr ".tgi[0].ni[9].x" 54.285713195800781;
 	setAttr ".tgi[0].ni[9].y" 335.71429443359375;
 	setAttr ".tgi[0].ni[9].nvs" 1923;
-	setAttr ".tgi[0].ni[10].x" -252.85714721679688;
-	setAttr ".tgi[0].ni[10].y" 335.71429443359375;
+	setAttr ".tgi[0].ni[10].x" 361.42855834960938;
+	setAttr ".tgi[0].ni[10].y" 312.85714721679688;
 	setAttr ".tgi[0].ni[10].nvs" 1923;
-	setAttr ".tgi[0].ni[11].x" -560;
-	setAttr ".tgi[0].ni[11].y" 312.85714721679688;
+	setAttr ".tgi[0].ni[11].x" 54.285713195800781;
+	setAttr ".tgi[0].ni[11].y" 335.71429443359375;
 	setAttr ".tgi[0].ni[11].nvs" 1923;
 select -ne :time1;
 	setAttr ".o" 82;
@@ -1200,6 +1219,7 @@ select -ne :hardwareRenderGlobals;
 	setAttr ".btrs" 512;
 select -ne :ikSystem;
 	setAttr -s 4 ".sol";
+connectAttr "polySoftEdge1.out" "ProjectorArrayShape.i";
 relationship "link" ":lightLinker1" ":initialShadingGroup.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" ":initialParticleSE.message" ":defaultLightSet.message";
 relationship "link" ":lightLinker1" "PowerFloor:lambert2SG.message" ":defaultLightSet.message";
@@ -1475,29 +1495,31 @@ connectAttr "place2dTexture3.vt3" "file3.vt3";
 connectAttr "place2dTexture3.vc1" "file3.vc1";
 connectAttr "place2dTexture3.o" "file3.uv";
 connectAttr "place2dTexture3.ofs" "file3.fs";
-connectAttr "UV1.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[0].dn"
+connectAttr "polySurfaceShape1.o" "polySoftEdge1.ip";
+connectAttr "ProjectorArrayShape.wm" "polySoftEdge1.mp";
+connectAttr "file2.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[0].dn"
 		;
-connectAttr "lambert2SG.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[1].dn"
+connectAttr "file1.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[1].dn"
 		;
-connectAttr "place2dTexture3.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[2].dn"
+connectAttr "place2dTexture1.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[2].dn"
 		;
-connectAttr "file3.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[3].dn"
+connectAttr "place2dTexture2.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[3].dn"
 		;
 connectAttr "lambert4SG.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[4].dn"
 		;
-connectAttr "place2dTexture2.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[5].dn"
+connectAttr "lambert3SG.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[5].dn"
 		;
-connectAttr "lambert3SG.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[6].dn"
+connectAttr "place2dTexture3.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[6].dn"
 		;
-connectAttr "UV2.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[7].dn"
+connectAttr "file3.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[7].dn"
 		;
-connectAttr "file2.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[8].dn"
+connectAttr "UV1.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[8].dn"
 		;
 connectAttr "UV3.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[9].dn"
 		;
-connectAttr "file1.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[10].dn"
+connectAttr "lambert2SG.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[10].dn"
 		;
-connectAttr "place2dTexture1.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[11].dn"
+connectAttr "UV2.msg" "hyperShadePrimaryNodeEditorSavedTabsInfo.tgi[0].ni[11].dn"
 		;
 connectAttr "PowerFloor:lambert2SG.pa" ":renderPartition.st" -na;
 connectAttr "PowerFloor:lambert3SG.pa" ":renderPartition.st" -na;
@@ -1552,4 +1574,4 @@ connectAttr "PowerCeiling:PowerFloor:file2.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file1.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file2.msg" ":defaultTextureList1.tx" -na;
 connectAttr "file3.msg" ":defaultTextureList1.tx" -na;
-// End of Projectotr.ma
+// End of Projector.ma
