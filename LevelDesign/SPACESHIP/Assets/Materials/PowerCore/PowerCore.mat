@@ -580,7 +580,7 @@ Material:
     - _MaterialID: 1
     - _MaterialTilingU: 1
     - _MaterialTilingV: 1
-    - _Metallic: 0
+    - _Metallic: 0.7
     - _Metallic0: 0
     - _Metallic1: 0
     - _Metallic2: 0
@@ -698,6 +698,7 @@ Material:
     - _BaseColor1: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor2: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor3: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _CarPaint2_BRDFColorMapUVScale: {r: 1, g: 1, b: 0, a: 0}
     - _CarPaint2_CTCoeffs: {r: 1, g: 1, b: 1, a: 1}
     - _CarPaint2_CTF0s: {r: 1, g: 1, b: 1, a: 1}
