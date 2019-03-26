@@ -5,15 +5,17 @@ using UnityEngine.Networking;
 
 public class LocalPlayerControl : NetworkBehaviour
 {
-    public GameObject camRig;
-    public Transform leftHand;
-    public Transform rightHand;
-    public Camera leftEye;
-    public Camera rightEye;
-    Vector3 pos;
+    //this may be used if one person is controlling both players
+    public List<Behaviour> componentsToDisable;
 
     private void Start()
     {
-        pos = transform.position;
+        if (!isLocalPlayer)
+        {
+            foreach(Behaviour component in componentsToDisable)
+            {
+                component.enabled = false;
+            }
+        }
     }
 }
