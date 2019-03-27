@@ -5,9 +5,25 @@ using UnityEngine.Networking;
 
 public class CustomNetworkDiscovery : NetworkDiscovery
 {
+    List<string> addresses;
+    bool exists;
+
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
-        NetworkManager.singleton.networkAddress = fromAddress;
-        NetworkManager.singleton.StartClient();
+        foreach (string address in addresses)
+        {
+            if(fromAddress == address)
+            {
+                exists = true;
+            }
+        }
+        if(!exists)
+        {
+            addresses.Add(fromAddress);
+            exists = false;
+            string add = fromAddress;
+            add.Replace("::ffff:", "");
+            NetworkManager.singleton.networkAddress = add;
+        }
     }
 }
