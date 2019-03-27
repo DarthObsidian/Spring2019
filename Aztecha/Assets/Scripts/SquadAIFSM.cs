@@ -5,41 +5,37 @@ using UnityEngine.AI;
 
 public class SquadAIFSM : MonoBehaviour
 {
-    public enum State { IDLE, FOLLOW, ATTACK, PURSUE, ORDER }
-
-#region  VARIABLES
+    public enum State { IDLE, FOLLOW, ATTACK, PURSUE, ORDER, RECALLED }
+    public enum UnitType { SPOTTER, SNIPER, STRONG }
 
     //variables about ai
     NavMeshAgent ai;
     State state = State.IDLE;
+    public UnitType unitType;
     bool alive;
     float timeScale = 0.01f;
 
-    //variables for following player
-    public GameObject player;
-    public float followDist;
-    public float walkSpeed, jogSpeed, runSpeed;
-    public float tooFarDist;
-
-    //variables for line of sight
-    public float sightDist;
+    //variables for scanning
     public float height;
+    public float sightDist;
 
-    //variables for pursuing enemies
-    [HideInInspector] public GameObject currentTarget;
+    //variables for attacking
     public float range;
-    public bool canPursue;
+    GameObject currentTarget;
+    bool enemySeen;
+    bool canPursue;
+
+    //variables for following player
+    GameObject player;
+    public float tooFarDist, followDist, walkSpeed, jogSpeed, runSpeed;
 
     //variables for orders
-    public Transform orderDest;
-
-    //variables for attack
-    public GameObject hitBox;
-
-#endregion
+    public GameObject order;
+    bool moving;
 
     private void Start()
     {
+        player = GameObject.FindWithTag("Player");
         ai = GetComponent<NavMeshAgent>();
         alive = true;
         canPursue = true;
@@ -55,59 +51,51 @@ public class SquadAIFSM : MonoBehaviour
             yield return new WaitForSeconds(timeScale);
         }
     }
-
-#region Functions
-
+    
     //Created line of sight and if an enemy is seen changes state to be PURSUE
     void Scan()
     {
-        //checks if the AI is allowed to pursue enemies
-        if(canPursue)
+        //Creates visible raycasts
+        Debug.DrawRay(transform.position + Vector3.up * height, transform.forward * sightDist, Color.green);
+        Debug.DrawRay(transform.position + Vector3.up * height, (transform.forward + transform.right).normalized * sightDist, Color.green);
+        Debug.DrawRay(transform.position + Vector3.up * height, (transform.forward - transform.right).normalized * sightDist, Color.green);
+        
+        //sends out a ray
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, transform.forward, out hit, sightDist))
         {
-            //Creates visible raycasts
-            Debug.DrawRay(transform.position + Vector3.up * height, transform.forward * sightDist, Color.green);
-            Debug.DrawRay(transform.position + Vector3.up * height, (transform.forward + transform.right).normalized * sightDist, Color.green);
-            Debug.DrawRay(transform.position + Vector3.up * height, (transform.forward - transform.right).normalized * sightDist, Color.green);
-            
-            //sends out a ray
-            RaycastHit hit;
-            if(Physics.Raycast(transform.position, transform.forward, out hit, sightDist))
-            {
-                //checks if ray hit enemy, if true changes state to pursue
-                if(hit.collider.tag == "Enemy" && currentTarget == null)
-                {
-                    currentTarget = hit.collider.gameObject;
-                    SetState(State.PURSUE);
-                }
-            }
-            if(Physics.Raycast(transform.position, (transform.forward + transform.right).normalized, out hit, sightDist))
-            {
-                if(hit.collider.tag == "Enemy" && currentTarget == null)
-                {
-                    currentTarget = hit.collider.gameObject;
-                    SetState(State.PURSUE);
-                }
-            }
-            if(Physics.Raycast(transform.position, (transform.forward + transform.right).normalized, out hit, sightDist))
-            {
-                if(hit.collider.tag == "Enemy" && currentTarget == null)
-                {
-                    currentTarget = hit.collider.gameObject;
-                    SetState(State.PURSUE);
-                }
-            }
+            EnemyFound(hit);
+        }
+        if(Physics.Raycast(transform.position, (transform.forward + transform.right).normalized, out hit, sightDist))
+        {
+            EnemyFound(hit);
+        }
+        if(Physics.Raycast(transform.position, (transform.forward + transform.right).normalized, out hit, sightDist))
+        {
+            EnemyFound(hit);
         }
     }
 
-    IEnumerator Refreash(bool _item, float _time)
+    void EnemyFound(RaycastHit _hit)
     {
-        yield return new WaitForSeconds(_time);
-        _item = !_item;
+        if(_hit.collider.tag == "Enemy" && currentTarget == null && canPursue)
+        {
+            currentTarget = _hit.collider.gameObject;
+            enemySeen = true;
+        }
     }
 
-#endregion
+    //sets the current state
+    public void SetState(State _state)
+    {
+        state = _state;
+    }
 
-#region  Finite State Machine
+    //gets the current state
+    public State GetState()
+    {
+        return state;
+    }
 
     //figures what the current state is
     void FSM()
@@ -129,21 +117,28 @@ public class SquadAIFSM : MonoBehaviour
             case State.ORDER:
                 Order();
                 break;
+            case State.RECALLED:
+                Recall();
+                break;
             default:
                 Debug.LogWarning("No valid state");
                 break;
         }
     }
 
-    //logic for idle state
     void Idle()
     {
-        ai.SetDestination(transform.position);
+        if(Vector3.Distance(transform.position, player.transform.position) > tooFarDist)
+        {
+            SetState(State.FOLLOW);
+        }
     }
 
-    //logic for follow state
     void Follow()
     {
+        ai.SetDestination(player.transform.position);
+        ai.stoppingDistance = followDist;
+        
         if(Vector3.Distance(transform.position, player.transform.position) > tooFarDist)
         {
             ai.speed = runSpeed;
@@ -153,56 +148,127 @@ public class SquadAIFSM : MonoBehaviour
             ai.speed = jogSpeed;
         }
 
-        //due to follow being called over and over these cannot be in here
-        //canPursue = false;
-        //StartCoroutine(Refreash(canPursue, 5f));
+        if(enemySeen && canPursue)
+        {
+            SetState(State.PURSUE);
+        }
+        else if(Vector3.Distance(transform.position, player.transform.position) <= followDist)
+        {
+            ai.speed = walkSpeed;
+            SetState(State.IDLE);
+        }
+    }
 
+    void Recall()
+    {
+        if(order != null)
+        {
+            order.GetComponent<OrderController>().inProgress = false;
+        }
+        
+        canPursue = false;
+        enemySeen = false;
         currentTarget = null;
+        order = null;
+
         ai.SetDestination(player.transform.position);
         ai.stoppingDistance = followDist;
+
+        if(Vector3.Distance(transform.position, player.transform.position) > tooFarDist)
+        {
+            ai.speed = runSpeed;
+        }
+        else
+        {
+            ai.speed = jogSpeed;
+        }
+
+        if(Vector3.Distance(transform.position, player.transform.position) <= followDist)
+        {
+            ai.speed = walkSpeed;
+            canPursue = true;
+            SetState(State.IDLE);
+        }
     }
 
-    //logic for attack state
-    void Attack()
-    {
-        print("I attack");
-    }
-
-    //logic for pursue state
     void Pursue()
     {
-        if(Vector3.Distance(transform.position, currentTarget.transform.position) > range)
+        if(Vector3.Distance(transform.position, currentTarget.transform.position) > range * 2)
         {
             ai.SetDestination(currentTarget.transform.position);
             ai.stoppingDistance = range;
             ai.speed = runSpeed;
         }
-        else
+        else if(Vector3.Distance(transform.position, currentTarget.transform.position) > range)
         {
-            {
-                SetState(State.ATTACK);
-            }
+            ai.SetDestination(currentTarget.transform.position);
+            ai.stoppingDistance = range;
+            ai.speed = jogSpeed;
+        }
+        else 
+        {
+            SetState(State.ATTACK);
+        }
+        
+        if(Vector3.Distance(transform.position, player.transform.position) > tooFarDist)
+        {
+            SetState(State.FOLLOW);
         }
     }
 
-    //logic for order state
+    void Attack()
+    {
+        transform.LookAt(currentTarget.transform);
+        print("I attack");
+        if(!currentTarget.GetComponent<EnemyController>().isAlive)
+        {
+            currentTarget = null;
+            enemySeen = false;
+        }
+
+        if( Vector3.Distance(transform.position, player.transform.position) > tooFarDist)
+        {
+            SetState(State.FOLLOW);
+        }
+    }
+
     void Order()
     {
-        ai.SetDestination(orderDest.position);
-        ai.stoppingDistance = 0;
+        if(transform.position != order.transform.position)
+        {
+            moving = true;
+            ai.stoppingDistance = 0;
+            ai.SetDestination(order.transform.position);
+        }
+        else
+        {
+            moving = false;
+        }
+        if(!moving)
+        {
+            switch(unitType)
+            {
+                case UnitType.SPOTTER:
+                    print("Revealing enemies");
+                    break;
+                case UnitType.SNIPER:
+                    if(Vector3.Distance(transform.position, currentTarget.transform.position) <= range && currentTarget.GetComponent<EnemyController>().isAlive)
+                    {
+                        print("I SNIPE!");
+                    }
+                    else
+                    {
+                        currentTarget = null;
+                    }
+                    break;
+                case UnitType.STRONG:
+                    print("I PUSH THE THING!");
+                    SetState(State.FOLLOW);
+                    break;
+                default:
+                    Debug.LogWarning("No UnitType defined!");
+                    break;
+            }
+        }  
     }
-
-    //sets the current state
-    public void SetState(State _state)
-    {
-        state = _state;
-    }
-
-    //gets the current state
-    public State GetState()
-    {
-        return state;
-    }
-
-#endregion
 }

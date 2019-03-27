@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 193952534}
   - component: {fileID: 193952533}
   - component: {fileID: 193952532}
+  - component: {fileID: 193952536}
   m_Layer: 11
   m_Name: Cube (4)
   m_TagString: order
@@ -203,6 +204,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &193952536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193952531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba41f3b2bfee87498f7685160c52cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitType: 1
+  inProgress: 0
 --- !u!1 &377648624
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,7 +543,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86eb0a2191c708348bcae3fb73ef009e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  maxHealth: 0
+  isAlive: 0
 --- !u!1 &646153683
 GameObject:
   m_ObjectHideFlags: 3
@@ -617,6 +633,7 @@ GameObject:
   - component: {fileID: 695868423}
   - component: {fileID: 695868422}
   - component: {fileID: 695868421}
+  - component: {fileID: 695868425}
   m_Layer: 11
   m_Name: Cube (3)
   m_TagString: order
@@ -696,6 +713,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &695868425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695868420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ba41f3b2bfee87498f7685160c52cfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitType: 0
+  inProgress: 0
 --- !u!1 &710345962
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,19 +1508,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf97e2ec5b09d449bb8ef59b777d288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 780429974}
+  unitType: 0
+  height: 0.5
+  sightDist: 25
+  range: 10
+  tooFarDist: 20
   followDist: 10
   walkSpeed: 5
   jogSpeed: 10
   runSpeed: 15
-  tooFarDist: 20
-  sightDist: 25
-  height: 0.5
-  currentTarget: {fileID: 0}
-  range: 5
-  canPursue: 0
-  orderDest: {fileID: 0}
-  hitBox: {fileID: 0}
+  order: {fileID: 0}
 --- !u!1 &817377715
 GameObject:
   m_ObjectHideFlags: 3

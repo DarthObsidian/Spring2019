@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
 
 	//variables for squad orders
 	public LayerMask squad;
-	private GameObject activeChar;
 	public Camera cam;
 	public List<SquadAIFSM> squadMembers;
 #endregion
@@ -72,16 +71,25 @@ public class PlayerController : MonoBehaviour
 		RaycastHit hit;
 		if(Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 100f, squad))
 		{
-			if(Input.GetKeyDown(KeyCode.E) && hit.collider.tag == "squad")
+			if(Input.GetKeyDown(KeyCode.Q) && hit.collider.tag == "order")
 			{
-				activeChar = hit.collider.gameObject;			
-			}
-			else if(Input.GetKeyDown(KeyCode.Q) && activeChar != null)
-			{
-				activeChar.GetComponent<SquadAIFSM>().orderDest = hit.collider.gameObject.transform;
-				activeChar.GetComponent<SquadAIFSM>().SetState(SquadAIFSM.State.ORDER);
-
-				activeChar = null;
+				OrderController order = hit.collider.gameObject.GetComponent<OrderController>();
+				foreach (SquadAIFSM member in squadMembers)
+				{
+					if(member.unitType == order.unitType)
+					{
+						if(order.inProgress)
+						{
+							member.SetState(SquadAIFSM.State.RECALLED);
+						}
+						else
+						{
+							member.order = hit.collider.gameObject;
+							member.SetState(SquadAIFSM.State.ORDER);
+							order.inProgress = true;
+						}
+					}
+				}
 			}
 		}
 
@@ -89,7 +97,7 @@ public class PlayerController : MonoBehaviour
 		{
 			foreach (SquadAIFSM member in squadMembers)
 			{
-				member.SetState(SquadAIFSM.State.FOLLOW);
+				member.SetState(SquadAIFSM.State.RECALLED);
 			}
 		}
 	}
