@@ -1,0 +1,4 @@
+Transfer network ownership for VR interactable objects
+Do network transform children have to be children and not grandchildren
+Networked players not visible to each other
+Networked players spawning at the same place
