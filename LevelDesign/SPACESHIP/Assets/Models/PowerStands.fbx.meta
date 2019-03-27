@@ -46,6 +46,16 @@ ModelImporter:
     100080: WireConnector5
     100082: WireConnector6
     100084: WireConnectors
+    100086: Handle
+    100088: HandleConnection
+    100090: HandleConnection3
+    100092: Light
+    100094: Light 1
+    100096: LightMount
+    100098: LightMount 1
+    100100: PowerLight
+    100102: PowerLight1
+    100104: PowerSwitch
     400000: Absorber
     400002: Absorber 1
     400004: Absorber1
@@ -89,8 +99,19 @@ ModelImporter:
     400080: WireConnector5
     400082: WireConnector6
     400084: WireConnectors
+    400086: Handle
+    400088: HandleConnection
+    400090: HandleConnection3
+    400092: Light
+    400094: Light 1
+    400096: LightMount
+    400098: LightMount 1
+    400100: PowerLight
+    400102: PowerLight1
+    400104: PowerSwitch
     2100000: UV1
     2100002: UV2
+    2100004: UV3
     2300000: Absorber
     2300002: Absorber 1
     2300004: Absorber1
@@ -126,6 +147,13 @@ ModelImporter:
     2300064: WireConnector4
     2300066: WireConnector5
     2300068: WireConnector6
+    2300070: Handle
+    2300072: HandleConnection
+    2300074: HandleConnection3
+    2300076: Light
+    2300078: Light 1
+    2300080: LightMount
+    2300082: LightMount 1
     3300000: Absorber
     3300002: Absorber 1
     3300004: Absorber1
@@ -161,6 +189,13 @@ ModelImporter:
     3300064: WireConnector4
     3300066: WireConnector5
     3300068: WireConnector6
+    3300070: Handle
+    3300072: HandleConnection
+    3300074: HandleConnection3
+    3300076: Light
+    3300078: Light 1
+    3300080: LightMount
+    3300082: LightMount 1
     4300000: TopStand
     4300002: Absorber
     4300004: Absorber1
@@ -196,6 +231,13 @@ ModelImporter:
     4300064: Door
     4300066: Wire1
     4300068: Wire2
+    4300070: Handle
+    4300072: HandleConnection
+    4300074: HandleConnection3
+    4300076: LightMount
+    4300078: Light
+    4300080: LightMount
+    4300082: Light
   externalObjects: {}
   materials:
     importMaterials: 1
