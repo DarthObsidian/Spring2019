@@ -12,10 +12,15 @@ public class LocalPlayerControl : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
+            this.gameObject.tag = "NonLocalPlayer";
             foreach(Behaviour component in componentsToDisable)
             {
                 component.enabled = false;
             }
+        }
+        else
+        {
+            this.gameObject.tag = "LocalPlayer";
         }
     }
 }
