@@ -38,6 +38,9 @@
         },
         "UV2": {
             "shader": "Main shader"
+        },
+        "UV3": {
+            "shader": "Main shader"
         }
     }
 }
