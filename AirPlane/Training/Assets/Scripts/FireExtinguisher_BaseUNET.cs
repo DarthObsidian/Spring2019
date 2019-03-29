@@ -20,9 +20,14 @@ public class FireExtinguisher_BaseUNET : FireExtinguisher_Base
 
     public override void OnInteractableObjectTouched(InteractableObjectEventArgs e)
     {
+        if(nID.IsEmpty())
+        {
+            nID = GetComponent<NetworkIdentity>().netId;
+        }
+        
         lPlayer = GameObject.FindWithTag("LocalPlayer");
         pID = lPlayer.GetComponent<NetworkIdentity>();
-        lPlayer.GetComponent<LocalPlayerControl>().SetAuthority(nID, pID);
+        lPlayer.GetComponent<LocalPlayerControl>().CmdSetAuthority(nID, pID);
 
         base.OnInteractableObjectTouched(e);
     }

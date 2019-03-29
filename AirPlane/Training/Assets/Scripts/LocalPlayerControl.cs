@@ -26,7 +26,8 @@ public class LocalPlayerControl : NetworkBehaviour
         }
     }
 
-    public void SetAuthority(NetworkInstanceId _objId, NetworkIdentity _player)
+    [Command]
+    public void CmdSetAuthority(NetworkInstanceId _objId, NetworkIdentity _player)
     {
         GameObject obj = NetworkServer.FindLocalObject(_objId);
 
