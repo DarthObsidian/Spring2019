@@ -8,30 +8,21 @@ using VRTK.Examples;
 
 public class FireExtinguisher_BaseUNET : FireExtinguisher_Base
 {
-    NetworkIdentity nID;
+    NetworkInstanceId nID;
+    NetworkIdentity pID;
     GameObject lPlayer;
     NetworkConnection currentOwner;
 
     private void Start()
     {
-        nID = GetComponent<NetworkIdentity>();
+        nID = GetComponent<NetworkIdentity>().netId;
     }
 
     public override void OnInteractableObjectTouched(InteractableObjectEventArgs e)
     {
         lPlayer = GameObject.FindWithTag("LocalPlayer");
-        NetworkConnection player = lPlayer.GetComponent<NetworkIdentity>().connectionToClient;
-
-        if(currentOwner != player)
-        {
-            if(currentOwner != null)
-            {
-                nID.RemoveClientAuthority(currentOwner);
-            }
-            currentOwner = player;
-
-            nID.AssignClientAuthority(currentOwner);
-        }
+        pID = lPlayer.GetComponent<NetworkIdentity>();
+        lPlayer.GetComponent<LocalPlayerControl>().SetAuthority(nID, pID);
 
         base.OnInteractableObjectTouched(e);
     }

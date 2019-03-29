@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using VRTK;
 
 public class LocalPlayerControl : NetworkBehaviour
 {
-    //this may be used if one person is controlling both players
     public List<Behaviour> componentsToDisable;
 
     private void Start()
@@ -21,6 +21,34 @@ public class LocalPlayerControl : NetworkBehaviour
         else
         {
             this.gameObject.tag = "LocalPlayer";
+            GameObject obj = GameObject.FindWithTag("Player");
+            obj.transform.position = transform.position;
         }
+    }
+
+    public void SetAuthority(NetworkInstanceId _objId, NetworkIdentity _player)
+    {
+        GameObject obj = NetworkServer.FindLocalObject(_objId);
+
+        if(obj != null)
+        {
+            NetworkIdentity oID = obj.GetComponent<NetworkIdentity>();
+
+            NetworkConnection otherOwner = oID.clientAuthorityOwner;
+
+            if (otherOwner == _player.connectionToClient)
+            {
+                return;
+            }
+            else
+            {
+                if (otherOwner != null)
+                {
+                    oID.RemoveClientAuthority(otherOwner);
+                }
+                oID.AssignClientAuthority(_player.connectionToClient);
+            }
+        }
+        
     }
 }

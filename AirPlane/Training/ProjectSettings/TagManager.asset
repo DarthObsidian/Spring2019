@@ -10,6 +10,8 @@ TagManager:
   - Water
   - LocalPlayer
   - NonLocalPlayer
+  - LeftController
+  - RightController
   layers:
   - Default
   - TransparentFX
