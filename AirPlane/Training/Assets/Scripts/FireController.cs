@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ParticleSystem))]
 public class FireController : MonoBehaviour
 {
+    public GameObject fire;
     Coroutine dieOut, riseUp;
-    ParticleSystem.MainModule ps;
     bool dead;
-
-    private void Start()
-    {
-        ps = GetComponent<ParticleSystem>().main;
-    }
+    public float scaleFactor;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -40,22 +35,23 @@ public class FireController : MonoBehaviour
 
     IEnumerator DieOut()
     {
-        while(ps.startSize.constant > 0)
+        while (fire.transform.localScale.x > Vector3.zero.x)
         {
-            ps.startSize = new ParticleSystem.MinMaxCurve(ps.startSize.constant - 0.1f);
+            fire.transform.localScale -= new Vector3(scaleFactor, scaleFactor, scaleFactor);
             yield return new WaitForSeconds(1f);
         }
-        if(ps.startSize.constant <= 0)
+        if(fire.transform.localScale.x <= 0)
         {
             dead = true;
+            fire.SetActive(false);
         }
     }
 
     IEnumerator RiseUp()
     {
-        while (ps.startSize.constant < 1)
+        while (fire.transform.localScale.x < 0.5)
         {
-            ps.startSize = new ParticleSystem.MinMaxCurve(ps.startSize.constant + 0.1f);
+            fire.transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
             yield return new WaitForSeconds(1f);
         }
     }
