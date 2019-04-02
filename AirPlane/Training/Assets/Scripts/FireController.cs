@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class FireController : MonoBehaviour
+public class FireController : NetworkBehaviour
 {
     public GameObject fire;
     Coroutine dieOut, riseUp;
+    [SyncVar]
     bool dead;
     public float scaleFactor;
 
@@ -42,8 +44,9 @@ public class FireController : MonoBehaviour
         }
         if(fire.transform.localScale.x <= 0)
         {
-            dead = true;
-            fire.SetActive(false);
+            // dead = true;
+            // fire.SetActive(false);
+            CmdDie();
         }
     }
 
@@ -54,5 +57,18 @@ public class FireController : MonoBehaviour
             fire.transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    [Command]
+    void CmdDie()
+    {
+        RpcDie();
+    }
+
+    [ClientRpc]
+    void RpcDie()
+    {
+        dead = true;
+        fire.SetActive(false);
     }
 }

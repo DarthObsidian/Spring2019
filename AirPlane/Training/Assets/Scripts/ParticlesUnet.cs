@@ -11,6 +11,10 @@ public class ParticlesUnet : NetworkBehaviour
 
     private void Awake()
     {
+        if(!isLocalPlayer)
+        {
+            return;
+        }
         ps = GetComponent<ParticleSystem>();
         CmdPlay();
     }
@@ -24,6 +28,10 @@ public class ParticlesUnet : NetworkBehaviour
     [ClientRpc] 
     void RpcPlay()
     {
+        if(isLocalPlayer)
+        {
+            return;
+        }
         ps.Play();
     }
 }

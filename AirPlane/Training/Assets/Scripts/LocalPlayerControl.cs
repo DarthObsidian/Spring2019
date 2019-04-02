@@ -31,12 +31,6 @@ public class LocalPlayerControl : NetworkBehaviour
     [Command]
     public void CmdSetAuthority(NetworkInstanceId _objId, NetworkIdentity _player)
     {
-        RpcSetAuthority(_objId, _player);
-    }
-
-    [ClientRpc]
-    public void RpcSetAuthority(NetworkInstanceId _objId, NetworkIdentity _player)
-    {
         GameObject obj = NetworkServer.FindLocalObject(_objId);
 
         if(obj != null)
@@ -75,10 +69,10 @@ public class LocalPlayerControl : NetworkBehaviour
     [Client]
     public void Spray(float _power)
     {
-        if(!isLocalPlayer)
-        {
-            return;
-        }
+        // if(!isLocalPlayer)
+        // {
+        //     return;
+        // }
 
         CmdSpray(_power);
         

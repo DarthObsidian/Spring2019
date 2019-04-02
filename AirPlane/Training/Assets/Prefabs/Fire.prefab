@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5771396548670236971}
   - component: {fileID: 4012568841934709900}
   - component: {fileID: 5543427579851131181}
+  - component: {fileID: 4572126024323262518}
   m_Layer: 0
   m_Name: Fire
   m_TagString: Untagged
@@ -108,6 +109,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ps: {fileID: 5955853706056018767}
+--- !u!114 &4572126024323262518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5771396548670236969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.071428575
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 10
+  m_InterpolateMovement: 1
 --- !u!1001 &5771396549490007081
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -175,6 +198,20 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.50000024
       objectReference: {fileID: 0}
+    - target: {fileID: 2227923148389479577, guid: 3228a22491941734bb83ad691d17fcb9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227923148389479577, guid: 3228a22491941734bb83ad691d17fcb9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010646992276, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 198000013227194214, guid: 3228a22491941734bb83ad691d17fcb9,
         type: 3}
       propertyPath: ShapeModule.m_Scale.x
@@ -210,28 +247,14 @@ PrefabInstance:
       propertyPath: ShapeModule.radiusThickness
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010646992276, guid: 3228a22491941734bb83ad691d17fcb9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2227923148389479577, guid: 3228a22491941734bb83ad691d17fcb9,
+    - target: {fileID: 2033499124521337427, guid: 3228a22491941734bb83ad691d17fcb9,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.53
-      objectReference: {fileID: 0}
-    - target: {fileID: 2227923148389479577, guid: 3228a22491941734bb83ad691d17fcb9,
-        type: 3}
-      propertyPath: m_LocalPosition.y
+      propertyPath: m_AllowRoll
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2033682204079530521, guid: 3228a22491941734bb83ad691d17fcb9,
         type: 3}
       propertyPath: CollisionModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2033499124521337427, guid: 3228a22491941734bb83ad691d17fcb9,
-        type: 3}
-      propertyPath: m_AllowRoll
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
