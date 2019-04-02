@@ -9,7 +9,7 @@ public class FireController : NetworkBehaviour
     Coroutine dieOut, riseUp;
     [SyncVar]
     bool dead;
-    public float scaleFactor;
+    public float timeScale;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -19,7 +19,7 @@ public class FireController : NetworkBehaviour
             {
                 StopCoroutine(riseUp);
             }
-            dieOut = StartCoroutine(DieOut());
+            CmdDieOut();
         }
     }
 
@@ -31,21 +31,19 @@ public class FireController : NetworkBehaviour
             {
                 StopCoroutine(dieOut);
             }
-            riseUp = StartCoroutine(RiseUp());
+            CmdRiseUp();
         }
     }
 
     IEnumerator DieOut()
     {
-        while (fire.transform.localScale.x > Vector3.zero.x)
+        while (fire.transform.localScale.x >= 0.1f)
         {
-            fire.transform.localScale -= new Vector3(scaleFactor, scaleFactor, scaleFactor);
-            yield return new WaitForSeconds(1f);
+            fire.transform.localScale = Vector3.Lerp(fire.transform.localScale, Vector3.zero, Time.deltaTime * timeScale);
+            yield return new WaitForSeconds(0.01f);
         }
-        if(fire.transform.localScale.x <= 0)
+        if(fire.transform.localScale.x < 0.1)
         {
-            // dead = true;
-            // fire.SetActive(false);
             CmdDie();
         }
     }
@@ -54,9 +52,33 @@ public class FireController : NetworkBehaviour
     {
         while (fire.transform.localScale.x < 0.5)
         {
-            fire.transform.localScale += new Vector3(scaleFactor, scaleFactor, scaleFactor);
-            yield return new WaitForSeconds(1f);
+            fire.transform.localScale = Vector3.Lerp(fire.transform.localScale, new Vector3(0.5f, 0.5f, 0.5f), Time.deltaTime * timeScale);
+            yield return new WaitForSeconds(0.01f);
         }
+    }
+
+    [Command]
+    void CmdDieOut()
+    {
+        RpcDieOut();
+    }
+
+    [ClientRpc]
+    void RpcDieOut()
+    {
+        dieOut = StartCoroutine(DieOut());
+    }
+
+    [Command]
+    void CmdRiseUp()
+    {
+        RpcRiseUp();
+    }
+
+    [ClientRpc]
+    void RpcRiseUp()
+    {
+        riseUp = StartCoroutine(RiseUp());
     }
 
     [Command]
