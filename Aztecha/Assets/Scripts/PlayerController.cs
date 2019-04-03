@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 	float speed;
 	
 	Vector3 move = Vector3.zero;
-    public bool canMove = true;
+    public bool canMove, alive = true;
     public Camera maincam;
 
     //variables for jump/roll
@@ -54,12 +54,15 @@ public class PlayerController : MonoBehaviour
 
 	IEnumerator PlayGame() 
 	{
-		while(canMove)
+		while(alive)
 		{
-			MoveInput();
-			AttackInput();
-			DefendInput();
-			OrderInput();
+			if(canMove)
+			{
+				MoveInput();
+				AttackInput();
+				DefendInput();
+				OrderInput();
+			}
 			yield return new WaitForSeconds(0.01f);
 		}
 	}
