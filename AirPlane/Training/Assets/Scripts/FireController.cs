@@ -11,6 +11,23 @@ public class FireController : NetworkBehaviour
     bool dead;
     public float timeScale;
 
+    [SyncVar]
+    Vector3 scale;
+
+    private void Start()
+    {
+        if (dead)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            scale = new Vector3(0.1f, 0.1f, 0.1f);
+            fire.transform.localScale = scale;
+            riseUp = StartCoroutine(RiseUp());
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Water" && !dead)
@@ -39,7 +56,8 @@ public class FireController : NetworkBehaviour
     {
         while (fire.transform.localScale.x >= 0.1f)
         {
-            fire.transform.localScale = Vector3.Lerp(fire.transform.localScale, Vector3.zero, Time.deltaTime * timeScale);
+            scale = Vector3.Lerp(scale, Vector3.zero, Time.deltaTime * timeScale);
+            fire.transform.localScale = scale;
             yield return new WaitForSeconds(0.01f);
         }
         if(fire.transform.localScale.x < 0.1)
@@ -52,7 +70,8 @@ public class FireController : NetworkBehaviour
     {
         while (fire.transform.localScale.x < 0.5)
         {
-            fire.transform.localScale = Vector3.Lerp(fire.transform.localScale, new Vector3(0.5f, 0.5f, 0.5f), Time.deltaTime * timeScale);
+            scale = Vector3.Lerp(scale, new Vector3(0.5f, 0.5f, 0.5f), Time.deltaTime * timeScale);
+            fire.transform.localScale = scale;
             yield return new WaitForSeconds(0.01f);
         }
     }

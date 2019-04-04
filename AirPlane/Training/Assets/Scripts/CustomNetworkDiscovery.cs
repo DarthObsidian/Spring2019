@@ -24,7 +24,6 @@ public class CustomNetworkDiscovery : NetworkDiscovery
             exists = false;
             string add = fromAddress;
             add = add.Replace("::ffff:","");
-            print(add);
             NetworkManager.singleton.networkAddress = add;
         }
     }
