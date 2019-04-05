@@ -27,11 +27,16 @@ public class SquadAIFSM : MonoBehaviour
 
     //variables for following player
     GameObject player;
-    public float tooFarDist, followDist, walkSpeed, jogSpeed, runSpeed;
+    public float tooFarDist, followDist, walkSpeed, jogSpeed, runSpeed, toIdleTime;
+    bool waiting;
 
     //variables for orders
-    public GameObject order;
+    [HideInInspector] public GameObject order;
     bool moving;
+
+    //variables for saving coroutines
+    Coroutine play;
+    Coroutine waitToIdle;
 
     private void Start()
     {
@@ -39,7 +44,12 @@ public class SquadAIFSM : MonoBehaviour
         ai = GetComponent<NavMeshAgent>();
         alive = true;
         canPursue = true;
-        StartCoroutine(Play());
+
+        if(play != null)
+        {
+            StopCoroutine(play);
+        }
+        play = StartCoroutine(Play());
     }
 
     IEnumerator Play()
@@ -97,6 +107,14 @@ public class SquadAIFSM : MonoBehaviour
         return state;
     }
 
+    void StopCoroutines()
+    {
+        if(waitToIdle != null)
+        {
+            StopCoroutine(waitToIdle);
+        }
+    }
+
     //figures what the current state is
     void FSM()
     {
@@ -142,6 +160,12 @@ public class SquadAIFSM : MonoBehaviour
         if(Vector3.Distance(transform.position, player.transform.position) > tooFarDist)
         {
             ai.speed = runSpeed;
+
+            if(waiting && waitToIdle != null)
+            {
+                waiting = false;
+                StopCoroutine(TimeToIdle());
+            }
         }
         else
         {
@@ -152,10 +176,10 @@ public class SquadAIFSM : MonoBehaviour
         {
             SetState(State.PURSUE);
         }
-        else if(Vector3.Distance(transform.position, player.transform.position) <= followDist)
+        else if(Vector3.Distance(transform.position, player.transform.position) <= followDist && !waiting)
         {
             ai.speed = walkSpeed;
-            SetState(State.IDLE);
+            waitToIdle = StartCoroutine(TimeToIdle());
         }
     }
 
@@ -183,11 +207,11 @@ public class SquadAIFSM : MonoBehaviour
             ai.speed = jogSpeed;
         }
 
-        if(Vector3.Distance(transform.position, player.transform.position) <= followDist)
+        if(Vector3.Distance(transform.position, player.transform.position) <= followDist && !waiting)
         {
             ai.speed = walkSpeed;
             canPursue = true;
-            SetState(State.IDLE);
+            waitToIdle = StartCoroutine(TimeToIdle());
         }
     }
 
@@ -271,4 +295,19 @@ public class SquadAIFSM : MonoBehaviour
             }
         }  
     }
+
+    IEnumerator TimeToIdle()
+    {
+        waiting = true;
+        int currentTime = 0;
+        while(currentTime < toIdleTime)
+        {
+            currentTime++;
+            yield return new WaitForSeconds(1f);
+        }
+
+        SetState(State.IDLE);
+        waiting = false;
+    }
+
 }
