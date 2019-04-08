@@ -7,15 +7,10 @@ using UnityEngine.Networking;
 
 public class ParticlesUnet : NetworkBehaviour
 {
-    public ParticleSystem ps;
+    public List<ParticleSystem> ps;
 
-    private void Awake()
+    private void Start()
     {
-        if(!isLocalPlayer)
-        {
-            return;
-        }
-        ps = GetComponent<ParticleSystem>();
         CmdPlay();
     }
 
@@ -28,10 +23,10 @@ public class ParticlesUnet : NetworkBehaviour
     [ClientRpc] 
     void RpcPlay()
     {
-        if(isLocalPlayer)
+        foreach(ParticleSystem system in ps)
         {
-            return;
+            print("hi");
+            system.Play();
         }
-        ps.Play();
     }
 }
