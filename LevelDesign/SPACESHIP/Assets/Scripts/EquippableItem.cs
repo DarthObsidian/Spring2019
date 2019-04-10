@@ -6,14 +6,20 @@ public class EquippableItem : Interact
 {
     private GameObject player;
     public string message;
+    AudioSource aud;
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");    
+        player = GameObject.FindWithTag("Player");
+        aud = GetComponent<AudioSource>(); 
     }
 
     public override void doStuff()
     {
+        if(aud != null)
+        {
+            aud.Play();
+        }
         player.GetComponent<PlayerController>().EquipItem(this.gameObject);
         print(message);
     }

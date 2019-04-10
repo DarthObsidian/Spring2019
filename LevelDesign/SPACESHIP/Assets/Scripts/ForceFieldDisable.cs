@@ -8,6 +8,9 @@ public class ForceFieldDisable : Interact
     public AudioSource shieldAud;
     public List<GameObject> objs;
     bool used;
+    public ScreenFlicker screen;
+    float displacementAmount;
+    public MeshRenderer forceFieldMesh;
 
     private void Start()
     {
@@ -19,6 +22,7 @@ public class ForceFieldDisable : Interact
         if(!used)
         {
             aud.Play();
+            screen.SetScreen();
             StartCoroutine(WaitForAudio());
             used = true;
         }
@@ -32,9 +36,12 @@ public class ForceFieldDisable : Interact
             yield return new WaitForSeconds(0.01f);
         }
         shieldAud.Play();
+        displacementAmount = 0.5f;
 
         while(shieldAud.isPlaying)
         {
+            displacementAmount = Mathf.Lerp(displacementAmount, 0, Time.deltaTime);
+            forceFieldMesh.material.SetFloat("_DisplaceAmount", displacementAmount);
             yield return new WaitForSeconds(0.01f);
         }
         
