@@ -57,22 +57,14 @@ public class FireController : NetworkBehaviour
     {
         if(other.tag == "Water" && !dead)
         {
-            if(riseUp != null)
-            {
-                StopCoroutine(riseUp);
-            }
             CmdDieOut();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Water" && !dead)
+        if (other.tag == "Water" && !dead)
         {
-            if(dieOut != null)
-            {
-                StopCoroutine(dieOut);
-            }
             CmdRiseUp();
         }
     }
@@ -91,7 +83,21 @@ public class FireController : NetworkBehaviour
         started = true;
         firePS.Play();
         fog.Play();
+        StopFireCoroutines();
         riseUp = StartCoroutine(RiseUp());
+    }
+
+    void StopFireCoroutines()
+    {
+        if(dieOut != null)
+        {
+            StopCoroutine(dieOut);
+        }
+
+        if(riseUp != null)
+        {
+            StopCoroutine(riseUp);
+        }
     }
 
     IEnumerator DieOut()
@@ -174,6 +180,7 @@ public class FireController : NetworkBehaviour
     [ClientRpc]
     void RpcDieOut()
     {
+        StopFireCoroutines();
         dieOut = StartCoroutine(DieOut());
     }
 
@@ -186,6 +193,7 @@ public class FireController : NetworkBehaviour
     [ClientRpc]
     void RpcRiseUp()
     {
+        StopFireCoroutines();
         riseUp = StartCoroutine(RiseUp());
     }
 

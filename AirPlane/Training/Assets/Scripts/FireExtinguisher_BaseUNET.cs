@@ -12,6 +12,7 @@ public class FireExtinguisher_BaseUNET : FireExtinguisher_Base
     NetworkIdentity pID;
     GameObject lPlayer;
     FireExtinguisherNetwork fNet;
+    public BoxCollider trigger;
 
     private void Start()
     {
@@ -42,5 +43,25 @@ public class FireExtinguisher_BaseUNET : FireExtinguisher_Base
     protected override void Spray(float power)
     {
         fNet.CmdSpray(power);
+    }
+
+    public override void OnInteractableObjectUsed(InteractableObjectEventArgs e)
+    {
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.right, out hit, 100f))
+        {
+            if (hit.collider.gameObject.tag == "Fire")
+            {
+                trigger.enabled = true;
+            }
+        }
+        base.OnInteractableObjectUsed(e);
+    }
+
+    public override void OnInteractableObjectUnused(InteractableObjectEventArgs e)
+    {
+        trigger.enabled = false;
+        base.OnInteractableObjectUnused(e);
     }
 }
