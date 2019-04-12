@@ -6,12 +6,15 @@ public class ObjectEnable : Interact
 {
     public List<GameObject> objs;
     public bool state;
-    public string message;
 
-    public string noItemMessage;
     public GameObject requiredItem;
+    public GameObject powerSwitch;
 
     private GameObject player;
+
+    public AudioSource source;
+    public Vector3 switchRot;
+    bool used;
 
     private void Start()
     {
@@ -20,28 +23,22 @@ public class ObjectEnable : Interact
 
     public override void doStuff()
     {
-        if(requiredItem != null)
+        if(!used)
         {
-            if(player.GetComponent<PlayerController>().equippedItem != null && player.GetComponent<PlayerController>().equippedItem.name == requiredItem.name)
+            if(requiredItem != null)
             {
-                foreach (GameObject obj in objs)
+                if(player.GetComponent<PlayerController>().equippedItem != null && player.GetComponent<PlayerController>().equippedItem.name == requiredItem.name)
                 {
-                    obj.SetActive(state);
+                    source.Play();
+                    powerSwitch.transform.localEulerAngles = switchRot;
+
+                    foreach (GameObject obj in objs)
+                    {
+                        obj.SetActive(state);
+                    }
                 }
-                print(message);
             }
-            else
-            {
-                print(noItemMessage);
-            }
-        }
-        else
-        {
-            foreach (GameObject obj in objs)
-            {
-                obj.SetActive(state);
-            }
-            print(message);
+            used = true;
         }
     }
 }

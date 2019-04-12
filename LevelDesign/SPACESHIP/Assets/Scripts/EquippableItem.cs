@@ -5,7 +5,6 @@ using UnityEngine;
 public class EquippableItem : Interact
 {
     private GameObject player;
-    public string message;
     AudioSource aud;
 
     private void Start()
@@ -21,6 +20,5 @@ public class EquippableItem : Interact
             aud.Play();
         }
         player.GetComponent<PlayerController>().EquipItem(this.gameObject);
-        print(message);
     }
 }

@@ -31,11 +31,20 @@ public class PlayerController : MonoBehaviour
 	//variables for trigger
 	public GameObject trigger;
 
+	//variables for footsteps
+	public AudioSource footstepSource;
+    public List<AudioClip> clips;
+    public float footSpeed = 0.5f;
+    int count = 0;
+
+	Coroutine playFootsteps;
+
 	void Start() 
 	{
 		transform.position = startPos.position;
 		transform.rotation = startPos.rotation;
 		cc = GetComponent<CharacterController>();
+		playFootsteps = StartCoroutine(PlayFootsteps());
 		StartCoroutine(PlayGame());
 	}
 
@@ -47,6 +56,28 @@ public class PlayerController : MonoBehaviour
 			yield return new WaitForSeconds(0.01f);
 		}
 	}
+
+    IEnumerator PlayFootsteps()
+    {
+        while(canMove)
+        {
+			if(Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+			{
+                if(isGrounded())
+				{
+					footstepSource.clip = clips[count];
+					footstepSource.Play();
+               		count = count == 0 ? 1 : 0;
+				}
+				
+			}
+			else
+			{
+				footstepSource.Stop();
+			}
+			yield return new WaitForSeconds(footSpeed);
+        }
+    }
 
 	void MoveInput()
     {

@@ -33,7 +33,7 @@ public class Viewbobbing : MonoBehaviour
             float totalAxes = Mathf.Abs(horizontal) + Mathf.Abs(vertical); 
             totalAxes = Mathf.Clamp (totalAxes, 0.0f, 1.0f); 
             translateChange = totalAxes * translateChange; 
-            transform.localPosition = new Vector3(0, midpoint + translateChange, 0); 
+            transform.localPosition = new Vector3(0, midpoint + translateChange, 0);
         } 
         else 
         { 
