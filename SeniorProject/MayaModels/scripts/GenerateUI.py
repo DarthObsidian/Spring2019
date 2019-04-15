@@ -22,6 +22,7 @@ class ToolBox(Window.Window):
         cmds.button(command=lambda *args: self.StretchyIKTool(), height=25, label='StretchyIK', parent=column)
         cmds.button(command=lambda *args: self.WireToSkin(), height=25, label='WireToSkin', parent=column)
         cmds.button(command=lambda *args: self.SkinToWire(), height=25, label='SkinToWire', parent=column)
+        cmds.button(command=lambda *args: self.Colorize(), height=25, label='Colorize', parent=column)
 
         cmds.showWindow(self.mWin)
 
@@ -72,3 +73,9 @@ class ToolBox(Window.Window):
         reload(SkinToWire)
         skinToWireTool = SkinToWire.SkinToWire()
         skinToWireTool.CreateUI()
+
+    def Colorize(self):
+        import Colorize
+        reload(Colorize)
+        colorizeTool = Colorize.Colorize()
+        colorizeTool.CreateUI()
