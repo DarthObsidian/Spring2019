@@ -13,11 +13,13 @@ public class FireExtinguisher_BaseUNET : FireExtinguisher_Base
     GameObject lPlayer;
     FireExtinguisherNetwork fNet;
     public BoxCollider trigger;
+    Vector3 scale;
 
     private void Start()
     {
         nID = GetComponent<NetworkIdentity>().netId;
         fNet = GetComponent<FireExtinguisherNetwork>();
+        scale = trigger.gameObject.transform.localScale;
     }
 
     public override void OnInteractableObjectTouched(InteractableObjectEventArgs e)
@@ -53,6 +55,7 @@ public class FireExtinguisher_BaseUNET : FireExtinguisher_Base
         {
             if (hit.collider.gameObject.tag == "Fire")
             {
+                trigger.gameObject.transform.localScale = scale;
                 trigger.enabled = true;
             }
         }
@@ -61,7 +64,7 @@ public class FireExtinguisher_BaseUNET : FireExtinguisher_Base
 
     public override void OnInteractableObjectUnused(InteractableObjectEventArgs e)
     {
-        trigger.enabled = false;
+        trigger.gameObject.transform.localScale = Vector3.zero;
         base.OnInteractableObjectUnused(e);
     }
 }

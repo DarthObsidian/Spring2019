@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4782102570816282320}
   - component: {fileID: 4782102570816282321}
+  - component: {fileID: 3130568589331993143}
   m_Layer: 0
   m_Name: Female Passenger
   m_TagString: Untagged
@@ -44,9 +45,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee03449825b0fe4d98ed841bba9f669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 4782102570564765137}
-  moveAmount: {x: -1, y: 0, z: 0}
-  stopDist: 1.2
+  anim: {fileID: 3130568589331993143}
+  moveDestination: {fileID: 0}
+  moveAmount: 0
+--- !u!95 &3130568589331993143
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4782102570816282326}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: a09e80b007800db418f381ef240aec73, type: 3}
+  m_Controller: {fileID: 9100000, guid: 32d560fe98fc67d488f49c25b5a97de1, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &4782102570555289777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -106,17 +126,12 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 32d560fe98fc67d488f49c25b5a97de1, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9500000, guid: a09e80b007800db418f381ef240aec73, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a09e80b007800db418f381ef240aec73, type: 3}
 --- !u!4 &4782102570554894901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: a09e80b007800db418f381ef240aec73,
-    type: 3}
-  m_PrefabInstance: {fileID: 4782102570555289777}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &4782102570564765137 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9500000, guid: a09e80b007800db418f381ef240aec73,
     type: 3}
   m_PrefabInstance: {fileID: 4782102570555289777}
   m_PrefabAsset: {fileID: 0}

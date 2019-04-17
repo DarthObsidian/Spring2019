@@ -17,7 +17,7 @@ public class PassangerControl : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.G))
         {
-            Shimmy();
+            anim.SetBool("Shimmy", true);
         }
     }
 
@@ -28,14 +28,20 @@ public class PassangerControl : MonoBehaviour
 
     public void Shimmy()
     {
-        anim.SetBool("Shimmy", true);
-
         if(myCor != null)
         {
             StopCoroutine(myCor);
         }
 
         myCor = StartCoroutine(Move());
+    }
+
+    public void StopShimmy()
+    {
+        if(myCor != null)
+        {
+            StopCoroutine(myCor);
+        }
     }
 
     IEnumerator Move()
