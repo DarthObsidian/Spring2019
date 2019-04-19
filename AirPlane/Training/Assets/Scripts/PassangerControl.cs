@@ -8,13 +8,14 @@ public class PassangerControl : MonoBehaviour
     public List<GameObject> waypoints;
     GameObject moveDestination;
     public float moveAmount;
-    Coroutine myCor;
+    Coroutine myCor, wayCor;
 
-    bool moving;
+    bool moving, canPlay;
     int index;
 
     private void Start()
     {
+        canPlay = true;
         index = 0;
         moveDestination = waypoints[index];
     }
@@ -24,50 +25,60 @@ public class PassangerControl : MonoBehaviour
         if(index < waypoints.Capacity - 1)
         {
             moveDestination = waypoints[++index];
-            CheckWaypoint();
         }
     }
 
     public void CheckWaypoint()
     {
-        if (moveDestination.tag == "Walk")
+        if(wayCor != null) { StopCoroutine(wayCor); }
+        wayCor = StartCoroutine(Waypoints());
+    }
+
+    IEnumerator Waypoints()
+    {
+        while(canPlay)
         {
-            anim.SetBool("Walk", true);
-            if (myCor != null)
+            if (moveDestination.tag == "Walk" && transform.position == moveDestination.transform.position)
             {
-                StopCoroutine(myCor);
+                anim.SetBool("Walk", true);
+                if (myCor != null)
+                {
+                    yield return new WaitUntil(() => moving == false);
+                }
+                myCor = StartCoroutine(Move("Walk"));
             }
-            myCor = StartCoroutine(Move("Walk"));
-        }
-        else if (moveDestination.tag == "Sit")
-        {
-            anim.SetBool("StandUp", false);
-        }
-        else if (moveDestination.tag == "Shimmy")
-        {
-            anim.SetBool("Shimmy", true);
-            if (myCor != null)
+            else if (moveDestination.tag == "Sit" && transform.position == moveDestination.transform.position)
             {
-                StopCoroutine(myCor);
+                anim.SetBool("StandUp", false);
             }
-            myCor = StartCoroutine(Move("Shimmy"));
+            else if (moveDestination.tag == "Shimmy" && transform.position == moveDestination.transform.position)
+            {
+                anim.SetBool("Shimmy", true);
+                if (myCor != null)
+                {
+                    yield return new WaitUntil(() => moving == false);
+                }
+                myCor = StartCoroutine(Move("Shimmy"));
+            }
+            else if (moveDestination.tag == "Stand" && transform.position == moveDestination.transform.position)
+            {
+                anim.SetBool("StandUp", true);
+            }
+            yield return new WaitForSeconds(0.01f);
         }
-        else
-        {
-            anim.SetBool("StandUp", true);
-        }
+        
     }
 
     IEnumerator Move(string _current)
     {
         moving = true;
-        while(transform.position != moveDestination.transform.position)
+        NextWaypoint();
+        while (transform.position != moveDestination.transform.position)
         {
             transform.position = Vector3.MoveTowards(transform.position, moveDestination.transform.position, moveAmount);
             yield return new WaitForSeconds(0.01f);
         }
-        moving = false;
         anim.SetBool(_current, false);
-        NextWaypoint();
+        moving = false;
     }
 }
