@@ -5,52 +5,69 @@ using UnityEngine;
 public class PassangerControl : MonoBehaviour
 {
     public Animator anim;
-    public GameObject moveDestination;
+    public List<GameObject> waypoints;
+    GameObject moveDestination;
     public float moveAmount;
     Coroutine myCor;
 
-    private void Update()
+    bool moving;
+    int index;
+
+    private void Start()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        index = 0;
+        moveDestination = waypoints[index];
+    }
+
+    public void NextWaypoint()
+    {
+        if(index < waypoints.Capacity - 1)
         {
-            Stand();
+            moveDestination = waypoints[++index];
+            CheckWaypoint();
         }
-        if(Input.GetKeyDown(KeyCode.G))
+    }
+
+    public void CheckWaypoint()
+    {
+        if (moveDestination.tag == "Walk")
+        {
+            anim.SetBool("Walk", true);
+            if (myCor != null)
+            {
+                StopCoroutine(myCor);
+            }
+            myCor = StartCoroutine(Move("Walk"));
+        }
+        else if (moveDestination.tag == "Sit")
+        {
+            anim.SetBool("StandUp", false);
+        }
+        else if (moveDestination.tag == "Shimmy")
         {
             anim.SetBool("Shimmy", true);
+            if (myCor != null)
+            {
+                StopCoroutine(myCor);
+            }
+            myCor = StartCoroutine(Move("Shimmy"));
         }
-    }
-
-    public void Stand()
-    {
-        anim.SetBool("StandUp", true);
-    }
-
-    public void Shimmy()
-    {
-        if(myCor != null)
+        else
         {
-            StopCoroutine(myCor);
-        }
-
-        myCor = StartCoroutine(Move());
-    }
-
-    public void StopShimmy()
-    {
-        if(myCor != null)
-        {
-            StopCoroutine(myCor);
+            anim.SetBool("StandUp", true);
         }
     }
 
-    IEnumerator Move()
+    IEnumerator Move(string _current)
     {
-        while(transform.position.x != moveDestination.transform.position.x || transform.position.z != moveDestination.transform.position.z)
+        moving = true;
+        while(transform.position != moveDestination.transform.position)
         {
             transform.position = Vector3.MoveTowards(transform.position, moveDestination.transform.position, moveAmount);
             yield return new WaitForSeconds(0.01f);
         }
-        anim.SetBool("Shimmy", false);
+        moving = false;
+        anim.SetBool(_current, false);
+        NextWaypoint();
     }
 }

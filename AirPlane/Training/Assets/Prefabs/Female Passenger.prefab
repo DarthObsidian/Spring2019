@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4782102570816282320}
   - component: {fileID: 4782102570816282321}
   - component: {fileID: 3130568589331993143}
+  - component: {fileID: 3486856629208653806}
+  - component: {fileID: 8407756333929219323}
   m_Layer: 0
   m_Name: Female Passenger
   m_TagString: Untagged
@@ -46,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 3130568589331993143}
-  moveDestination: {fileID: 0}
+  waypoints: []
   moveAmount: 0
 --- !u!95 &3130568589331993143
 Animator:
@@ -67,6 +69,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!54 &3486856629208653806
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4782102570816282326}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &8407756333929219323
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4782102570816282326}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.02
+  m_Height: 0.12
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4782102570555289777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -80,11 +112,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: a09e80b007800db418f381ef240aec73, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.0076
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: a09e80b007800db418f381ef240aec73, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.0233
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: a09e80b007800db418f381ef240aec73, type: 3}
       propertyPath: m_LocalPosition.z
