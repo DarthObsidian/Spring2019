@@ -10,7 +10,7 @@ public class FireController : NetworkBehaviour
     [SyncVar]
     bool dead;
     [SyncVar]
-    bool started;
+    public bool started;
     public float timeScale, quickTimeScale, maxFogAmount;
     public Vector2 intensityMinMax;
 

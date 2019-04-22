@@ -6,13 +6,20 @@ using UnityEngine.Networking;
 public class MotherBrain : NetworkBehaviour
 {
     public List<PassangerControl> passengers;
+    public FireController fire;
 
-    private void Update()
+    private void Start()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        StartCoroutine(WaitForFire());
+    }
+
+    IEnumerator WaitForFire()
+    {
+        while(!fire.started)
         {
-            CmdStartAI();
+            yield return new WaitForSeconds(1f);
         }
+        CmdStartAI();
     }
 
     [Command]
