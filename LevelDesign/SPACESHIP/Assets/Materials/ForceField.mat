@@ -263,7 +263,7 @@ Material:
     - Vector2_F7A37BEE: {r: 0.1, g: 0.1, b: 0, a: 0}
     - Vector2_FCAD2DF7: {r: 1, g: 4, b: 0, a: 0}
     - _AltMovement: {r: 1, g: 0, b: 0, a: 0}
-    - _AltTiling: {r: 1, g: 4, b: 0, a: 0}
+    - _AltTiling: {r: 1, g: 10, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 0, b: 0, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 0, b: 0, a: 1}
@@ -274,7 +274,7 @@ Material:
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _MainColor: {r: 1, g: 0, b: 0.009137154, a: 0}
     - _MainMovement: {r: 0, g: 0, b: 0, a: 0}
-    - _MainTiliing: {r: 2, g: 2, b: 0, a: 0}
+    - _MainTiliing: {r: 10, g: 10, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}

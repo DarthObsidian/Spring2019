@@ -9,7 +9,7 @@ public class ForceFieldDisable : Interact
     public List<GameObject> objs;
     bool used;
     public ScreenFlicker screen;
-    float displacementAmount;
+    public float displacementAmount;
     public MeshRenderer forceFieldMesh;
 
     private void Start()
@@ -36,18 +36,26 @@ public class ForceFieldDisable : Interact
             yield return new WaitForSeconds(0.01f);
         }
         shieldAud.Play();
-        displacementAmount = 0.5f;
-
+        
+        int i = 0;
         while(shieldAud.isPlaying)
         {
-            displacementAmount = Mathf.Lerp(displacementAmount, 0, Time.deltaTime);
-            forceFieldMesh.material.SetFloat("_DisplaceAmount", displacementAmount);
+            if(i > 30)
+            {
+                displacementAmount = Mathf.Lerp(displacementAmount, 0, Time.deltaTime);
+                forceFieldMesh.material.SetFloat("_DisplaceAmount", displacementAmount);
+            
+            }
+            
+            if(i >= 175)
+            {
+                foreach (GameObject item in objs)
+                {
+                    item.SetActive(false);
+                }
+            }
             yield return new WaitForSeconds(0.01f);
-        }
-        
-        foreach (GameObject item in objs)
-        {
-            item.SetActive(false);
+            i++;
         }
     }
 }

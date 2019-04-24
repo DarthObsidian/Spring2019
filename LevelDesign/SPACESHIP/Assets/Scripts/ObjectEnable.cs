@@ -13,6 +13,7 @@ public class ObjectEnable : Interact
     private GameObject player;
 
     public AudioSource source;
+    public AudioClip clp;
     public Vector3 switchRot;
     bool used;
 
@@ -31,7 +32,7 @@ public class ObjectEnable : Interact
                 {
                     source.Play();
                     powerSwitch.transform.localEulerAngles = switchRot;
-
+                    StartCoroutine(Sound());
                     foreach (GameObject obj in objs)
                     {
                         obj.SetActive(state);
@@ -40,5 +41,15 @@ public class ObjectEnable : Interact
             }
             used = true;
         }
+    }
+
+    IEnumerator Sound()
+    {
+        while(source.isPlaying)
+        {
+            yield return new WaitForSeconds(0.01f);
+        }
+        source.clip = clp;
+        source.Play();
     }
 }
