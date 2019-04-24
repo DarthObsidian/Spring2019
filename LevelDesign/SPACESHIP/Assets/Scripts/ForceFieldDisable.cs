@@ -42,9 +42,12 @@ public class ForceFieldDisable : Interact
         {
             if(i > 30)
             {
+                forceFieldMesh.material.SetFloat("_DisplaceAmount", displacementAmount);
+            }
+            if(i > 125)
+            {
                 displacementAmount = Mathf.Lerp(displacementAmount, 0, Time.deltaTime);
                 forceFieldMesh.material.SetFloat("_DisplaceAmount", displacementAmount);
-            
             }
             
             if(i >= 175)
