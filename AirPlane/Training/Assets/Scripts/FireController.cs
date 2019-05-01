@@ -152,7 +152,7 @@ public class FireController : NetworkBehaviour
 
     IEnumerator DelayStart()
     {
-        float rand = Random.Range(1f, 20f);
+        float rand = Random.Range(15f, 20f);
 
         yield return new WaitForSeconds(rand);
 
