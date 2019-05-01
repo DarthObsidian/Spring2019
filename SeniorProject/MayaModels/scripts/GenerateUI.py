@@ -23,6 +23,7 @@ class ToolBox(Window.Window):
         cmds.button(command=lambda *args: self.WireToSkin(), height=25, label='WireToSkin', parent=column)
         cmds.button(command=lambda *args: self.SkinToWire(), height=25, label='SkinToWire', parent=column)
         cmds.button(command=lambda *args: self.Colorize(), height=25, label='Colorize', parent=column)
+        cmds.button(command=lambda *args: self.CopyAnimation(), label="Copy Animation", parent=column)
 
         cmds.showWindow(self.mWin)
 
@@ -79,3 +80,9 @@ class ToolBox(Window.Window):
         reload(Colorize)
         colorizeTool = Colorize.Colorize()
         colorizeTool.CreateUI()
+
+    def CopyAnimation(self):
+        import CopyAnimations
+        reload(CopyAnimations)
+        animTool = CopyAnimations.CopyAnimation()
+        animTool.CreateUI()
