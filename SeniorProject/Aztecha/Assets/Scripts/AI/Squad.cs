@@ -6,11 +6,22 @@ using UnityEngine.AI;
 
 public class Squad : MonoBehaviour
 {
+    public enum UnitType { SPOTTER, SNIPER, STRONG }
+
     public FSM fsm => GetComponent<FSM>();
     public NavMeshAgent ai => GetComponent<NavMeshAgent>();
+    public UnitType unitType;
+    public bool alive;
+    float timeScale = 0.01f;
+    public float followDistance = 10;
+    public float range = 5;
+    public GameObject currentTarget;
+
+    public GameObject player => GameObject.FindWithTag("Player");
 
     private void Awake()
     {
+        alive = true;
         InitializeFSM();
     }
 
@@ -39,5 +50,10 @@ public class Squad : MonoBehaviour
     public void SetStoppingDist(float _stopDist)
     {
         ai.stoppingDistance = _stopDist;
+    }
+
+    public void Die()
+    {
+        alive = false;
     }
 }

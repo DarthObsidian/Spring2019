@@ -14,6 +14,15 @@ public class ChaseState : BaseState
 
     public override Type Tick()
     {
-        return null;
+        squad.SetDestination(squad.currentTarget.transform.position);
+        
+        if(Vector3.Distance(squad.transform.position, squad.currentTarget.transform.position) <= squad.range)
+        {
+            return typeof(AttackState);
+        }
+        else
+        {
+            return null;
+        }
     }
 }
